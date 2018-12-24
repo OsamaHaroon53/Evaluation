@@ -9,7 +9,7 @@ const courseSchema = new Schema({
     courseNo: {
         type: String,
         required: [true, 'course no. required'],
-        unique: true,
+        unique: true
     },
     creditHour: {
         type: String,
@@ -19,17 +19,22 @@ const courseSchema = new Schema({
             validator: function (v, cb) {
                 setTimeout(function () {
                     var valid = (/^(\d{1})([+]{1})(\d{1})$/.test(v)) || (/^\d{1}$/.test(v));
-                    var msg = v + ' is not a valid course number!';
+                    var msg = v + ' is not a valid course credit hour!';
                     cb(valid, msg);
                 }, 5);
             },
             // Default error message, overridden by 2nd argument to `cb()` above
             message: 'Request Time out'
-        },
+        }
+    },
+    courseType:{
+        type: String,
+        required: [true, 'course type required'],
+        enum: ['compulsory','optional','special']
     },
     program: {
         type: String,
-        required: [true, 'Program is required'],
+        required: [true, 'program is required'],
         enum: ['BSSE', 'BSCS', 'MCS', 'PGD', 'MS', 'Phd', 'MS/Phd']
     },
     semester: {
@@ -44,7 +49,7 @@ const courseSchema = new Schema({
     },
     content: {
         type: String,
-        default: 'Contact to office staff'
+        default: 'contact to office staff'
     },
     BookSuggestion: {
         type: [String]
