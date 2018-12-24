@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost:27017/vidGot', {
-    useNewUrlParser: true
+mongoose.connect('mongodb://localhost:27017/Evaluation', {
+    useNewUrlParser: true,
+    useCreateIndex: true
 });
 
 let db = mongoose.connection;
@@ -13,3 +14,4 @@ db.once('open', () => {
     console.log('CONNECTION OPENED!!');
     return db;
 });
+module.exports = db;
