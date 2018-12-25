@@ -27,13 +27,14 @@ module.exports = (req, res) => {
             if (err['code'] && err['code'] == 11000) {
                 console.log(err.code);
                 res.status(409).send({
-                    status: 400,
-                    msg: 'Error: Duplicate course number'
+                    status: 409,
+                    msg: 'Error: Duplicate course number',
+                    error: err
                 });
             }
             else if (err['errors'] && err['message'] && err['_message']) {
                 res.status(402).send({
-                    status: 500,
+                    status: 402,
                     error: err['message'],
                     msg: err['_message']
                 });
@@ -46,29 +47,3 @@ module.exports = (req, res) => {
                 });
         });
 };
-
-a = 
-{
-    "status": 500,
-    "msg": "Error: Server Error",
-    "err":
-    {
-        "errors":
-        {
-            "title":
-            {
-                "message": "course title required",
-                "name": "ValidatorError",
-                "properties":
-                {
-                    "message": "course title required",
-                    "type": "required", "path": "title", "value": ""
-                },
-                "kind": "required", "path": "title", "value": ""
-            },
-            "creditHour": { "message": "3+11 is not a valid course credit hour!", "name": "ValidatorError", "properties": { "isAsync": true, "message": "3+11 is not a valid course credit hour!", "type": "user defined", "path": "creditHour", "value": "3+11" }, "kind": "user defined", "path": "creditHour", "value": "3+11" }
-        },
-         "_message": "course validation failed", 
-         "message": "course validation failed: title: course title required, creditHour: 3+11 is not a valid course credit hour!", "name": "ValidationError"
-    }
-}
