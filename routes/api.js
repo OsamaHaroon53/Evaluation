@@ -7,8 +7,8 @@ const courseGet = require('./modules/course/courseGet')
 
 
 router.post('/course/add',courseAdd);
-router.post('/course/delete/:id',courseDelete);
-router.post('/course',courseGet);
+router.delete('/course/delete/:id',courseDelete);
+router.get('/course/:id',courseGet);
 
 
 
