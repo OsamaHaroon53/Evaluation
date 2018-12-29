@@ -12,14 +12,6 @@ module.exports = (req, res) => {
             });
         })
         .catch(err => {
-            if (err['name'] && err['name'] === "CastError" ) {
-                res.status(402).send({
-                    status: 402,
-                    error: err,
-                    msg: `Error: '${err['value']}' is invalid id`
-                });
-            }
-            else
             res.status(500).send({
                 status: 500,
                 msg: 'Error: Server Error',

@@ -9,7 +9,19 @@ const courseSchema = new Schema({
     courseNo: {
         type: String,
         required: [true, 'course no. required'],
-        unique: true
+        unique: true,
+        validate: {
+            isAsync: true,
+            validator: function (v, cb) {
+                setTimeout(function () {    
+                    var valid = (/^((MSCS)|(CS)|(CS[(]SE[)])|(BSCS)|(PGD))([-]{1})(\d{3})$/.test(v));
+                    var msg = v + ' is not a valid course number!';
+                    cb(valid, msg);
+                }, 5);
+            },
+            // Default error message, overridden by 2nd argument to `cb()` above
+            message: 'Request Time out'
+        }
     },
     creditHour: {
         type: String,
@@ -17,8 +29,8 @@ const courseSchema = new Schema({
         validate: {
             isAsync: true,
             validator: function (v, cb) {
-                setTimeout(function () {
-                    var valid = (/^(\d{1})([+]{1})(\d{1})$/.test(v)) || (/^\d{1}$/.test(v));
+                setTimeout(function () {    
+                    var valid = (/^(\d{1})$|(^(\d{1})([+]{1})(\d{1})$)/.test(v));
                     var msg = v + ' is not a valid course credit hour!';
                     cb(valid, msg);
                 }, 5);
@@ -35,7 +47,7 @@ const courseSchema = new Schema({
     program: {
         type: String,
         required: [true, 'program is required'],
-        enum: ['BSSE', 'BSCS', 'MCS', 'PGD', 'MS', 'Phd', 'MS/Phd']
+        enum: ['BSSE', 'BSCS', 'MCS', 'PGD', 'MS', 'Phd']
     },
     semester: {
         type: Number,
