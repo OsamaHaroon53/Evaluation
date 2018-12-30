@@ -56,8 +56,8 @@ const courseSchema = new Schema({
         max: 8
     },
     preRequisite: {
-        type: String,
-        default: 'None'
+        type: Schema.Types.ObjectId,
+        ref: 'course'
     },
     content: {
         type: String,
