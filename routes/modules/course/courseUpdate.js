@@ -3,7 +3,6 @@ const { validatePut } = require('./validation');
 
 module.exports = (req, res) => {
     var { error } = validatePut(req.body);
-    console.log(error)
     if (error !== null) {
         res.status(402).send({
             status: 402,
@@ -11,25 +10,27 @@ module.exports = (req, res) => {
             msg: "Validation Error"
         });
     }
-    else
-        courseModel.findByIdAndUpdate(
-            req.params.id,
-            { runValidators: true },
-            {
-                title: req.body.title,
-                courseNo: req.body.courseNo,
-                creditHour: req.body.creditHour,
-                program: req.body.program,
-                semester: req.body.semester,
-                courseType: req.body.courseType,
-                preRequisite: req.body.preRequisite,
-                content: req.body.content,
-                BookSuggestion: req.body.BookSuggestion
-            })
+    else {
+        newData = {
+            title: req.body.title,
+            courseNo: req.body.courseNo,
+            creditHour: req.body.creditHour,
+            program: req.body.program,
+            semester: req.body.semester,
+            courseType: req.body.courseType,
+            preRequisite: req.body.preRequisite,
+            content: req.body.content,
+            BookSuggestion: req.body.BookSuggestion
+        }
+
+        courseModel.findOneAndUpdate(req.params.id, newData)
             .then(data => {
                 data ? res.status(200).send({
                     status: 200,
-                    data: data,
+                    data: (()=>{
+                        newData["_id"]=req.params.id;
+                        return newData;
+                    })(),
                     msg: 'Success: Data Update succesfully'
                 }) : res.send({
                     status: 304,
@@ -43,4 +44,5 @@ module.exports = (req, res) => {
                     error: err
                 });
             });
+    }
 };
