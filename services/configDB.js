@@ -13,7 +13,8 @@ else {
 
 mongoose.connect(mongoURL, {
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 });
 
 let db = mongoose.connection;
