@@ -27,7 +27,7 @@ var validatePut = function(payload) {
         program: Joi.string().valid(['BSSE', 'BSCS', 'MCS', 'PGD', 'MS', 'Phd']).required(),
         semester: Joi.number().min(1).max(8).required(),
         courseType: Joi.string().valid(['compulsory', 'optional', 'special']).required(),
-        preRequisite: Joi.string().required(),
+        preRequisite: Joi.string().allow(null).required(),
         content: Joi.string().required(),
         BookSuggestion: Joi.array().items(Joi.string()).required()
     });

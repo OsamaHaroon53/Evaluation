@@ -1,13 +1,14 @@
 const courseModel = require('../../../models/Course');
 const objectid = require('mongoose').Types.ObjectId;;
 
-var programs = ['BSSE', 'BSCS', 'MCS', 'PGD', 'MS', 'Phd', 'MS/Phd'];
+var programs = ['BSSE', 'BSCS', 'MCS', 'PGD', 'MS', 'Phd'];
 
 module.exports = (req, res) => {
     var id = req.params.id;
     //find a course
     if (id.length == 24 && objectid.isValid(id)) {
         courseModel.findById(id)
+            .populate("preRequisite","title courseNo")
             .select("-__v")
             .then(data => {
                 data ? res.send({
@@ -30,7 +31,7 @@ module.exports = (req, res) => {
     }
     // find semester wise courses
     else if (id.length > 2 && id.length < 7) {
-        let program = id.slice(1) == "MSPhd" ? "MS/Phd" : id.slice(1);
+        let program = id.slice(1);
         validate(program, id.charCodeAt(0))
             ?
             courseModel.find({ program: program, semester: Number(id[0]) })
