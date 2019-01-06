@@ -2,41 +2,43 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const studentSchema = new Schema({
-    stud_name: {
+    name: {
         type: String,
-        required: true
+        // required: true
     },
     fname: {
-        type: String,
-        required: true
+        type: String
     },
     form_no: {
         type: Number,
-        required: false
+        required: true
     },
     enrolnment_no: {
-        type: String,
-        required: true
+        type: String
     },
     ep_no: {
         type: Number,
-        required: true
+        // required: true,
+        unique: true
     },
     phone_no: {
         type: Number,
-        required: true
+        // required: true
     },
     year: {
         type: Number,
-        required: true
+        // required: true
     },
     email: {
         type: String,
-        required: true
+        // required: true
     },
     password: {
         type: String,
-        required: true
+        // required: true
+    },
+    img:{
+        type: String
     }
 
 });
