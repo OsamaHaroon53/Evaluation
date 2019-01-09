@@ -5,6 +5,7 @@ const Student = require('../../../models/Student');
 
 module.exports = async function (req, res, next) {
     var role = req.body.role;
+    req.body.password = Math.random().toString(36).substring(5);
     if (role === 'admin') {
         let admin = await Admin.findOne(_.pick(req.body, "email"))
         if (admin) {
@@ -13,7 +14,9 @@ module.exports = async function (req, res, next) {
                 msg: "Admin already exist"
             });
         }
-        role = new Admin(_.pick(req.body, ['email', 'password', 'name']))
+        admin = _.pick(req.body, ['email', 'name']);
+        admin.password = req.body.password;
+        role = new Admin(admin);
     }
     else if (role === 'teacher') {
         let teacher = await Teacher.findOne(_.pick(req.body, "email"))
@@ -23,7 +26,9 @@ module.exports = async function (req, res, next) {
                 msg: "Teacher already exist"
             });
         }
-        role = new Teacher(_.pick(req.body, ['email', 'password', 'name']))
+        teacher = _.pick(req.body, ['email', 'name']);
+        teacher.password = req.body.password;
+        role = new Teacher(teacher);
     }
     else if (role === 'student') {
         let student = await Student.findOne(_.pick(req.body, "email"))
@@ -33,7 +38,9 @@ module.exports = async function (req, res, next) {
                 msg: "Student already exist"
             });
         }
-        role = new Student(_.pick(req.body, ['email', 'password', 'form_no']))
+        student = _.pick(req.body, ['email', 'form_no']);
+        student.password = req.body.password;
+        role = new Student(student);
     }
     else {
         return res.status(400).send({
@@ -48,7 +55,6 @@ module.exports = async function (req, res, next) {
         .catch(error => res.send(error));
     // send mail
     if (req['body']['data']) {
-        req.body.password = req.body.data.password;
         req.signUp = true;
         req.url = "/admin/sendpassword";
         next();
