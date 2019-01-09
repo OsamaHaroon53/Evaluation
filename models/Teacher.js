@@ -30,6 +30,11 @@ const teacherSchema = new Schema({
     },
     img:{
         type: String
+    },
+    isActive:{
+        type: String,
+        enum: ['inactive','active','sent'],
+        default: 'inactive'
     }
 });
 
