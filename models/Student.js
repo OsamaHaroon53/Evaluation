@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 const Schema = mongoose.Schema;
 
 const studentSchema = new Schema({
@@ -19,7 +20,7 @@ const studentSchema = new Schema({
     ep_no: {
         type: Number,
         // required: true,
-        unique: true
+        //unique: true
     },
     phone_no: {
         type: Number,
@@ -31,16 +32,27 @@ const studentSchema = new Schema({
     },
     email: {
         type: String,
-        // required: true
+        required: true
     },
     password: {
         type: String,
-        // required: true
+        required: true
     },
     img:{
         type: String
+    },
+    isActive:{
+        type: String,
+        enum: ['inactive','active','sent'],
+        default: 'inactive'
     }
-
 });
+
+studentSchema.methods.getToken = ()=>{
+    return jwt.sign({
+        _id: this._id,
+        role: 3
+    },'UBIT');
+}
 
 module.exports = mongoose.model('student', studentSchema);
