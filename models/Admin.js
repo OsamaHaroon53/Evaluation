@@ -15,6 +15,11 @@ var adminSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    isActive:{
+        type: String,
+        enum: ['inactive','active','sent'],
+        default: 'inactive'
     }
 });
 
