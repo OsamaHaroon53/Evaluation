@@ -3,8 +3,7 @@ const Admin = require('../../../models/Admin');
 const Teacher = require('../../../models/Teacher');
 const Student = require('../../../models/Student');
 const _ = require('lodash');
-
-
+const Joi = require('joi');
 /*
     Here we are configuring our SMTP Server details.
     STMP is mail server which is responsible for sending and recieving email.
@@ -14,13 +13,22 @@ var smtpTransport = nodemailer.createTransport({
     host: "smtp.gmail.com",
     secureConnection: true,
     auth: {
-        user: "",
-        pass: ""
+        user: "ubitad436@gmail.com",
+        pass: "asdf9876;l"
     }
 });
 
 module.exports = async function (req, res) {
-
+    if (!req['signUp']) {
+        let error = await validate(req.body);
+        if (error) {
+            return res.status(402).send({
+                status: 402,
+                error: error,
+                msg: "Validation Error"
+            });
+        }
+    }
     var role = req.body.role;
     if (!req['signUp']) {
         req.body.password = await getPassword(role, _.pick(req.body, "email"));
@@ -128,3 +136,14 @@ async function Update(role, email) {
     return record;
 }
 
+async function validate(payload) {
+    const schema = Joi.object().keys({
+        email: Joi.string().email().required(),
+        role: Joi.string().valid(['admin', 'teacher', 'student']).required()
+    });
+    let { error } = Joi.validate(payload, schema);
+    console.log('error',error);
+    if (error !== null)
+        delete error['isJoi'];
+    return error;
+}
