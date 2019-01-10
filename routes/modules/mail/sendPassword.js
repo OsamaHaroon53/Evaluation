@@ -42,7 +42,21 @@ module.exports = async function (req, res) {
     var mailOptions = {
         to: req.body.email,
         subject: "UBIT - Account Created",
-        text: ` Email: ${req.body.email}\n password: ${req.body.password}`
+        // text: ` Email: ${req.body.email}\n password: ${req.body.password}`
+        html: `
+                <div style="text-align:center;">
+                    <h3>Welcome to UBIT!</h3>
+                    <p>Your account has been Created</p><br />
+                    <div><img width="300px" src="cid:UBIT"/></div><br /><br />
+                    <div><strong>Email:</strong> <span style="padding:10px 5px;border: 1px solid grey;">${req.body.email}</span></div>
+                    <br /> <br />
+                    <div><strong>password:</strong> <span style="padding:8px 5px;border: 1px solid grey;">${req.body.password}</span></div><br />
+                </div>`,
+        attachments: [{
+            filename: 'UBITImage.jpg',
+            path: process.cwd() + '/images/UBITImage.jpg',
+            cid: 'UBIT' //same cid value as in the html img src
+        }]
     }
     try {
         let mail = await smtpTransport.sendMail(mailOptions);
@@ -142,7 +156,7 @@ async function validate(payload) {
         role: Joi.string().valid(['admin', 'teacher', 'student']).required()
     });
     let { error } = Joi.validate(payload, schema);
-    console.log('error',error);
+    console.log('error', error);
     if (error !== null)
         delete error['isJoi'];
     return error;
