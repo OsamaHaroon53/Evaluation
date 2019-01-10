@@ -8,6 +8,8 @@ const coursePut = require('./modules/course/courseUpdate');
 const courseNoGet = require('./modules/course/getAllCourseNo');
 const signUp = require('./modules/account/signup');
 const sendPassword = require('./modules/mail/sendPassword');
+const logIn = require('./modules/account/login');
+
 
 router.post('/course/add',courseAdd);
 router.delete('/course/delete/:id',courseDelete);
@@ -15,6 +17,7 @@ router.get('/course/:id',courseGet);
 router.put('/course/:id',coursePut);
 router.get('/course/courseNo/:program',courseNoGet);
 
+router.post('/login',logIn);
 router.post('/admin/signup',signUp);
 router.post('/admin/sendpassword',sendPassword);
 
