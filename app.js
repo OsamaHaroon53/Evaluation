@@ -25,7 +25,6 @@ if (app.get('env') === 'development') {
     app.use(errorHandler())
 }
 
-
 app.listen(port, () => {
     console.log(`listening on port ${port}`)
 });

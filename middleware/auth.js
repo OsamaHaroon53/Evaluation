@@ -8,12 +8,12 @@ module.exports = function(req,res,next){
             status: 401
         });
     try {
-        const decoded = jwt.verify(token,'ubit');
+        const decoded = jwt.verify(token,'UBIT');
         req.user = decoded;
         next();
     } catch (error) {
-        res.status(400).send({
-            msg: "Invalid user",
+        res.status(401).send({
+            msg: "Access denied. Invalid user",
             status: 401
         });
     }
