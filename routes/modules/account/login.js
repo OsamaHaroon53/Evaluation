@@ -13,32 +13,32 @@ module.exports = async function (req, res, next) {
             msg: "Validation Error"
         });
     }
-    var role = await findUser(req.body);
+    var role = await findUserType(req.body.role);
+    role = await role.findOne(_.pick(req.body,'email','password')).select('-__v -password');
     if(!role){
         return res.status(400).send({
             status: 400,
             msg: "Email or password is incorrect"
         });
     }
-    res.status(200).send({
+    res.header("x-auth-token",role.generateToken()).status(200).send({
         status: 200,
-        msg: `${req.body.role} login succesfully`,
-        data: role
+        msg: `login succesfully`,
+        data: _.pick(role,'email','name','form_no')
     });
 }
 
-async function findUser(body) {
-    var record = null;
-    if (body.role === 'admin') {
-        record = await Admin.findOne(_.pick(body,'email','password')).select('-_id -__v -password');
+async function findUserType(role) {
+    if (role === 'admin') {
+        return Admin;
     }
-    else if (body.role === 'teacher') {
-        record = await Teacher.findOne(_.pick(body,'email','password')).select('-_id -__v -password');
+    else if (role === 'teacher') {
+        return Teacher;
     }
-    else if (body.role === 'student') {
-        record = await Student.findOne(_.pick(body,'email','password')).select('-_id -__v -password');
+    else if (role === 'student') {
+        return Student;
     }
-    return record;
+    return null;
 }
 
 async function validate(payload){
