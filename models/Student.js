@@ -48,7 +48,7 @@ const studentSchema = new Schema({
     }
 });
 
-studentSchema.methods.getToken = ()=>{
+studentSchema.methods.generateToken = function(){
     return jwt.sign({
         _id: this._id,
         role: 3

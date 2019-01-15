@@ -10,7 +10,7 @@ const teacherSchema = new Schema({
     fname: {
         type: String
     },
-    Designation: {
+    designation: {
         type: String
     },
     qualification: {
@@ -38,7 +38,7 @@ const teacherSchema = new Schema({
     }
 });
 
-teacherSchema.methods.getToken = ()=>{
+teacherSchema.methods.generateToken = ()=>{
     return jwt.sign({
         _id: this._id,
         role: 2

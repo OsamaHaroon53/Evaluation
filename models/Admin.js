@@ -23,7 +23,7 @@ var adminSchema = new mongoose.Schema({
     }
 });
 
-adminSchema.methods.getToken = ()=>{
+adminSchema.methods.generateToken = ()=>{
     return jwt.sign({
         _id: this._id,
         role: 1
