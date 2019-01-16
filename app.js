@@ -10,7 +10,17 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 if(!config.has('jwtPrivateKey')){
-    console.error("FATAL ERROR: jwtPrivateKey is not defined",config.util.getEnv('NODE_CONFIG_DIR'));
+    console.error("FATAL ERROR: jwtPrivateKey is not defined");
+    process.exit(0);
+}
+
+if(!config.has('Guser')){
+    console.error("FATAL ERROR: Guser is not defined");
+    process.exit(0);
+}
+
+if(!config.has('Gpass')){
+    console.error("FATAL ERROR: Gpass is not defined");
     process.exit(0);
 }
 
