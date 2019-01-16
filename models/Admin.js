@@ -27,7 +27,7 @@ adminSchema.methods.generateToken = ()=>{
     return jwt.sign({
         _id: this._id,
         role: 1
-    },'UBIT');
+    },config.get('jwtPrivateKey'));
 }
 
 module.exports = mongoose.model("Admins", adminSchema);

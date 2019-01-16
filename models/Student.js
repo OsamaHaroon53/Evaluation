@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const config = require('config');
 const Schema = mongoose.Schema;
 
 const studentSchema = new Schema({
@@ -52,7 +53,7 @@ studentSchema.methods.generateToken = function(){
     return jwt.sign({
         _id: this._id,
         role: 3
-    },'UBIT');
+    },config.get('jwtPrivateKey'));
 }
 
 module.exports = mongoose.model('student', studentSchema);

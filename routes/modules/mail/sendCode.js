@@ -3,6 +3,7 @@ const Admin = require('../../../models/Admin');
 const Teacher = require('../../../models/Teacher');
 const Student = require('../../../models/Student');
 const _ = require('lodash');
+const config = require('config');
 /*
     Here we are configuring our SMTP Server details.
     STMP is mail server which is responsible for sending and recieving email.
@@ -12,8 +13,8 @@ var smtpTransport = nodemailer.createTransport({
     host: "smtp.gmail.com",
     secureConnection: true,
     auth: {
-        user: "asubitad436@gmail.com",
-        pass: ""
+        user: config.get('Guser'),
+        pass: config.get('Gpass')
     }
 });
 

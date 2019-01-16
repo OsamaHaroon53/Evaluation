@@ -5,8 +5,14 @@ const errorHandler = require('errorhandler');
 const cors =require('cors');
 const database = require('./services/configDB');
 const routes = require('./routes/api');
+const config = require('config')
 const app = express();
 const port = process.env.PORT || 3000;
+
+if(!config.has('jwtPrivateKey')){
+    console.error("FATAL ERROR: jwtPrivateKey is not defined",config.util.getEnv('NODE_CONFIG_DIR'));
+    process.exit(0);
+}
 
 app.use(logger('dev'));
 
