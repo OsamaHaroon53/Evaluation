@@ -1,5 +1,5 @@
 {
-    "jwtPriviteKey": "jwtPrivateKey",
+    "jwtPrivateKey": "KES_jwtPrivateKey",
     "Guser": "Guser",
     "Gpass": "Gpass"
 }
