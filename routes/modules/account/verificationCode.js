@@ -23,7 +23,8 @@ module.exports = async function (req, res, next) {
     }
     req.text = {
         email: req.body.email,
-        code: Math.random().toString(36).substring(7)
+        code: Math.random().toString(36).substring(7),
+        role: req.body.role
     }
     role = new Code(req.text);
     await role.save()
