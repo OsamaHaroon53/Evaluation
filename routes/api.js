@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth')
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin')
 
 const courseAdd = require('./modules/course/courseAdd');
 const courseDelete = require('./modules/course/courseDelete');
@@ -17,10 +18,10 @@ const changePassword = require('./modules/account/changePassword');
 const getTeacher = require('./modules/account/getTeacher');
 const getStudent = require('./modules/account/getStudent');
 
-router.post('/course/add',courseAdd);
-router.delete('/course/delete/:id',courseDelete);
+router.post('/course/add',[auth,admin],courseAdd);
+router.delete('/course/delete/:id',[auth,admin],courseDelete);
 router.get('/course/:id',courseGet);
-router.put('/course/:id',coursePut);
+router.put('/course/:id',[auth,admin],coursePut);
 router.get('/course/courseNo/:program',courseNoGet);
 
 router.post('/login',logIn);
@@ -31,9 +32,9 @@ router.post('/validatecode',validateCode);
 
 router.post('/changepassword',auth,changePassword);
 
-router.post('/admin/signup',signUp);
-router.post('/admin/sendpassword',sendPassword);
-router.get('/admin/allteacher',getTeacher);
-router.get('/admin/allstudent',getStudent);
+router.post('/admin/signup',[auth,admin],signUp);
+router.post('/admin/sendpassword',[auth,admin],sendPassword);
+router.get('/admin/allteacher',[auth,admin],getTeacher);
+router.get('/admin/allstudent',[auth,admin],getStudent);
 
 module.exports = router;
