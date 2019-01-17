@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const config = require('config');
 const Schema = mongoose.Schema;
 
 var adminSchema = new mongoose.Schema({
@@ -23,7 +24,7 @@ var adminSchema = new mongoose.Schema({
     }
 });
 
-adminSchema.methods.generateToken = ()=>{
+adminSchema.methods.generateToken = function(){
     return jwt.sign({
         _id: this._id,
         role: 1

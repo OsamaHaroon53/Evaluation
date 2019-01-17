@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const config = require('config');
 const Schema = mongoose.Schema;
 
 const teacherSchema = new Schema({
@@ -15,6 +16,11 @@ const teacherSchema = new Schema({
     },
     qualification: {
         type: String
+    },
+    type:{
+        type: String,
+        enum: ['permenant','visiting'],
+        default: 'visiting'
     },
     contact_no: {
         type: Number
@@ -38,7 +44,7 @@ const teacherSchema = new Schema({
     }
 });
 
-teacherSchema.methods.generateToken = ()=>{
+teacherSchema.methods.generateToken = function(){
     return jwt.sign({
         _id: this._id,
         role: 2
