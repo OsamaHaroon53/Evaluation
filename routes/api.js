@@ -12,8 +12,10 @@ const sendPassword = require('./modules/mail/sendPassword');
 const logIn = require('./modules/account/login');
 const createCode = require('./modules/account/verificationCode');
 const sendCode = require('./modules/mail/sendCode');
+const validateCode = require('./modules/account/validateVerificationCode');
 const changePassword = require('./modules/account/changePassword');
-
+const getTeacher = require('./modules/account/getTeacher');
+const getStudent = require('./modules/account/getStudent');
 
 router.post('/course/add',courseAdd);
 router.delete('/course/delete/:id',courseDelete);
@@ -22,11 +24,16 @@ router.put('/course/:id',coursePut);
 router.get('/course/courseNo/:program',courseNoGet);
 
 router.post('/login',logIn);
+
 router.post('/createcode',createCode);
 router.post('/sendcode',sendCode);
-router.post('/admin/signup',signUp);
-router.post('/admin/sendpassword',sendPassword);
+router.post('/validatecode',validateCode);
+
 router.post('/changepassword',auth,changePassword);
 
+router.post('/admin/signup',signUp);
+router.post('/admin/sendpassword',sendPassword);
+router.get('/admin/allteacher',getTeacher);
+router.get('/admin/allstudent',getStudent);
 
 module.exports = router;
