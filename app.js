@@ -9,17 +9,17 @@ const config = require('config')
 const app = express();
 const port = process.env.PORT || 3000;
 
-if(!config.has('jwtPrivateKey')){
+if(!config.get('jwtPrivateKey')){
     console.error("FATAL ERROR: jwtPrivateKey is not defined");
     process.exit(0);
 }
 
-if(!config.has('Guser')){
+if(!config.get('Guser')){
     console.error("FATAL ERROR: Guser is not defined");
     process.exit(0);
 }
 
-if(!config.has('Gpass')){
+if(!config.get('Gpass')){
     console.error("FATAL ERROR: Gpass is not defined");
     process.exit(0);
 }

@@ -14,14 +14,15 @@ module.exports = async function (req, res, next) {
         });
     }
     var role = await findUserType(req.body.role);
-    role = await role.findOne(_.pick(req.body,'email','password')).select('-__v -password');
+    role = await role.findOne(_.pick(req.body,'email','password'));
     if(!role){
         return res.status(400).send({
             status: 400,
             msg: "Email or password is incorrect"
         });
     }
-    res.header("x-auth-token",role.generateToken()).status(200).send({
+    console.log(role);
+    res.header("x-auth-token",await role.generateToken()).status(200).send({
         status: 200,
         msg: `login succesfully`,
         data: _.pick(role,'email','name','form_no')
