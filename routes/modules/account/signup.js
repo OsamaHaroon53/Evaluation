@@ -26,7 +26,11 @@ module.exports = async function (req, res, next) {
 
     await role.save()
         .then(student => req.body.data = student)
-        .catch(error => res.send(error));
+        .catch(error => res.status(500).send({
+            error: error,
+            msg: "Server Error",
+            status: 500
+        }));
     // send mail
     if (req['body']['data']) {
         req.signUp = true;
@@ -59,7 +63,7 @@ async function uniqueEmail(body) {
             return null;
         }
         record = _.pick(body, ['email', 'form_no','password']);
-        record = new Admin(record);
+        record = new Student(record);
     }
     return record;
 }
