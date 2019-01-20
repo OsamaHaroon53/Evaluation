@@ -44,9 +44,9 @@ async function findUserType(role) {
 
 async function validate(payload){
         const schema = Joi.object().keys({
-            email: Joi.string().email().required(),
+            email: Joi.string().email().regex(/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i).required(),
             role: Joi.string().valid(['admin','teacher','student']).required(),
-            password: Joi.string().required()
+            password: Joi.string().min(5).max(12).required()
         });
         let { error } = Joi.validate(payload, schema);
         if(error !== null)
