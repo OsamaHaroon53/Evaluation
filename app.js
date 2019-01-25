@@ -2,31 +2,46 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const errorHandler = require('errorhandler');
-const cors =require('./middleware/cors');
 const database = require('./services/configDB');
 const routes = require('./routes/api');
 const config = require('config')
 const app = express();
 const port = process.env.PORT || 3000;
 
-// if(!config.get('jwtPrivateKey')){
-//     console.error("FATAL ERROR: jwtPrivateKey is not defined");
-//     process.exit(0);
-// }
+if(!config.get('jwtPrivateKey')){
+    console.error("FATAL ERROR: jwtPrivateKey is not defined");
+    process.exit(0);
+}
 
-// if(!config.get('Guser')){
-//     console.error("FATAL ERROR: Guser is not defined");
-//     process.exit(0);
-// }
+if(!config.get('Guser')){
+    console.error("FATAL ERROR: Guser is not defined");
+    process.exit(0);
+}
 
-// if(!config.get('Gpass')){
-//     console.error("FATAL ERROR: Gpass is not defined");
-//     process.exit(0);
-// }
+if(!config.get('Gpass')){
+    console.error("FATAL ERROR: Gpass is not defined");
+    process.exit(0);
+}
 
 app.use(logger('dev'));
 
-app.use(cors());
+app.use(function(req,res,next){
+    res.header('Access-Control-Allow-Origin','*');
+      res.header(
+        'Access-Control-Allow-Methods',
+        'GET, POST, PUT, DELETE, OPTIONS',
+      );
+      res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, x-auth-token , Content-Type, Accept, Authorization, Access-Control-Allow-Credentials',
+      );
+      res.header(
+        'Access-Control-Expose-Headers',
+        'Origin, X-Requested-With, x-auth-token , Content-Type, Accept, Authorization, Access-Control-Allow-Credentials',
+      );
+      res.header('Access-Control-Allow-Credentials', 'true');
+      next();
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
