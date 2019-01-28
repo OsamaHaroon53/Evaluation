@@ -23,7 +23,7 @@ if (!config.get('Gpass')) {
     console.error("FATAL ERROR: Gpass is not defined");
     process.exit(0);
 }
-app.use(cors({exposedHeaders: 'x-auth-token'}))
+app.use(cors({exposedHeaders: 'X-Auth-Token'}))
 app.use(logger('dev'));
 
 app.use(function (req, res, next) {
@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
     );
     res.header(
         'Access-Control-Expose-Headers',
-        'Origin,x-auth-token , Content-Type, Accept',
+        'Origin,X-Auth-Token , Content-Type, Accept',
     );
     res.header('Access-Control-Allow-Credentials', 'true');
     next();
