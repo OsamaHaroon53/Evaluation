@@ -7,7 +7,6 @@ const routes = require('./routes/api');
 const config = require('config')
 const app = express();
 const port = process.env.PORT || 3000;
-const cors =require('cors')
 
 if (!config.get('jwtPrivateKey')) {
     console.error("FATAL ERROR: jwtPrivateKey is not defined");
@@ -23,7 +22,6 @@ if (!config.get('Gpass')) {
     console.error("FATAL ERROR: Gpass is not defined");
     process.exit(0);
 }
-// app.use(cors({exposedHeaders: 'X-Auth-Token'}))
 app.use(logger('dev'));
 
 app.use(function (req, res, next) {
