@@ -30,7 +30,7 @@ module.exports = async function (req, res, next) {
         });
     }
     console.log(role);
-    res.header("x-auth-token",await role.generateToken()).status(200).send({
+    res.header("X-Auth-Token",await role.generateToken()).status(200).send({
         status: 200,
         msg: 'Code verification successfully',
         data: _.pick(role,'email','name')
