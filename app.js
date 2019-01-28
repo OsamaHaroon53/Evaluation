@@ -7,40 +7,41 @@ const routes = require('./routes/api');
 const config = require('config')
 const app = express();
 const port = process.env.PORT || 3000;
+const cors =require('cors')
 
-if(!config.get('jwtPrivateKey')){
+if (!config.get('jwtPrivateKey')) {
     console.error("FATAL ERROR: jwtPrivateKey is not defined");
     process.exit(0);
 }
 
-if(!config.get('Guser')){
+if (!config.get('Guser')) {
     console.error("FATAL ERROR: Guser is not defined");
     process.exit(0);
 }
 
-if(!config.get('Gpass')){
+if (!config.get('Gpass')) {
     console.error("FATAL ERROR: Gpass is not defined");
     process.exit(0);
 }
-
+app.use(cors())
 app.use(logger('dev'));
 
-app.use(function(req,res,next){
-    res.header('Access-Control-Allow-Origin','*');
-      res.header(
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header(
         'Access-Control-Allow-Methods',
         'GET, POST, PUT, DELETE, OPTIONS',
-      );
-      res.header(
+    );
+    res.header(
         'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, x-auth-token , Content-Type, Accept, Authorization, Access-Control-Allow-Credentials',
-      );
-      res.header(
+        'Origin,x-auth-token,Content-Type,Accept',
+    );
+    res.header(
         'Access-Control-Expose-Headers',
-        'Origin, X-Requested-With, x-auth-token , Content-Type, Accept, Authorization, Access-Control-Allow-Credentials',
-      );
-      res.header('Access-Control-Allow-Credentials', 'true');
-      next();
+        'Origin,x-auth-token , Content-Type, Accept',
+    );
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
 });
 
 app.use(bodyParser.json());
