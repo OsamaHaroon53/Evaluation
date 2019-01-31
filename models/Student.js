@@ -67,7 +67,7 @@ studentSchema.methods.generateToken = function(){
     return jwt.sign({
         _id: this._id,
         role: 3
-    },config.get('jwtPrivateKey'));
+    },config.get('jwtPrivateKey'), { expiresIn: '30d' });
 }
 
 module.exports = mongoose.model('student', studentSchema);

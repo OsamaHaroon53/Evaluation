@@ -41,7 +41,7 @@ adminSchema.methods.generateToken = function(){
     return jwt.sign({
         _id: this._id,
         role: 1
-    },config.get('jwtPrivateKey'), { expiresIn: '5m' });
+    },config.get('jwtPrivateKey'), { expiresIn: '30d' });
 }
 
 module.exports = mongoose.model("Admins", adminSchema);
