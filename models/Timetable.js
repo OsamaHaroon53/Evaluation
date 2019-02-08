@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const TTSchema = new mongoose.Schema({
+const TTSchema = new Schema({
     Day: {
         type: Number,
         required: true,

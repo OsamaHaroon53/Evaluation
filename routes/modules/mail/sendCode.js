@@ -32,6 +32,7 @@ module.exports = async function (req, res) {
                 </div>`
     }
     console.log(mailOptions);
+    return res.send('ok');
     smtpTransport.sendMail(mailOptions, function (error, response) {
         if (error) {
             console.log(error);

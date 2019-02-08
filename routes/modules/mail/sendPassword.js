@@ -40,6 +40,7 @@ module.exports = async function (req, res) {
             });
         }
     }
+    return res.send('ok');
     var mailOptions = {
         to: req.body.email,
         subject: "UBIT - Account Created",
