@@ -1,5 +1,5 @@
 module.exports = function(req,res,next){
-    if(req.user.role === 1){
+    if(req['user']['role'] && req.user.role === 1){
         next();
     }
     else{
