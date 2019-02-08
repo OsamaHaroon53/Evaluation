@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
-
-const TTSchema = new Schema({
+const TTSchema = new mongoose.Schema({
     Day: {
         type: Number,
         required: true,
@@ -41,4 +39,4 @@ const TTSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('course', courseSchema);
+module.exports = mongoose.model('timeTable', TTSchema);

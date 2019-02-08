@@ -8,7 +8,7 @@ var validatePost = function(payload) {
         program: Joi.string().valid(['BSSE', 'BSCS', 'MCS', 'PGD', 'MS', 'Phd']).required(),
         semester: Joi.number().min(1).max(8).required(),
         courseType: Joi.string().valid(['compulsory', 'optional', 'special']).required(),
-        preRequisite: Joi.string(),
+        preRequisite: Joi.string().allow(null),
         content: Joi.string(),
         BookSuggestion: Joi.array().items(Joi.string())
     });
@@ -37,4 +37,5 @@ var validatePut = function(payload) {
         delete error['error']['isJoi'];
     return error;
 }; 
+
 module.exports = { validatePost, validatePut }

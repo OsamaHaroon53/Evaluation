@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const Schema = mongoose.Schema;
 
-const studentSchema = new Schema({
+const studentSchema = new mongoose.Schema({
     name: {
         type: String,
         // required: true

@@ -66,7 +66,7 @@ module.exports = (req, res) => {
     else {
         res.send({
             status: 402,
-            msg: 'Validation error:'
+            msg: 'Validation error'
         });
     }
 
