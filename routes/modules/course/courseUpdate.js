@@ -23,7 +23,7 @@ module.exports = (req, res) => {
             BookSuggestion: req.body.BookSuggestion
         }
 
-        courseModel.findOneAndUpdate(req.params.id, newData)
+        courseModel.findOneAndUpdate({ _id: req.params.id }, newData)
             .then(data => {
                 data ? res.status(200).send({
                     status: 200,
