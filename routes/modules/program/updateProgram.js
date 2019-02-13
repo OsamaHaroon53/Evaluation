@@ -1,9 +1,11 @@
-const Class = require('../../../models/Class');
-const Joi = require('joi');
+const Program = require('../../../models/Program');
+const validate= require('../Validation/program');
 
 module.exports = async (req, res) => {
     var { body } = req;
-    var error = await validate(body);
+    var { id } = req.params;
+    var error = await validate(body,id);
+    console.log(error);
     if (error) {
         return res.status(402).send({
             status: 402,
@@ -11,13 +13,13 @@ module.exports = async (req, res) => {
             msg: "Validation Error"
         });
     }
-    await Class.findOneAndUpdate({ _id: req.params.id }, body)
+    await Program.findOneAndUpdate({ _id: id }, body)
         .then(data => {
             console.log(data)
             data ? res.status(200).send({
                 status: 200,
                 data: (() => {
-                    body["_id"] = req.params.id;
+                    body["_id"] = id;
                     return body;
                 })(),
                 msg: 'Data Update succesfully'
@@ -34,15 +36,3 @@ module.exports = async (req, res) => {
             });
         });
 };
-
-async function validate(payload) {
-    const schema = Joi.object().keys({
-        program: Joi.string().required(),
-        semester: Joi.number().min(1).max(8).required(),
-        section: Joi.string().min(1).max(3)
-    });
-    let { error } = Joi.validate(payload, schema);
-    if (error !== null)
-        delete error['isJoi'];
-    return error;
-}

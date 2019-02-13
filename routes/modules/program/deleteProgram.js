@@ -1,15 +1,14 @@
-const Class = require('../../../models/Class');
+const Program = require('../../../models/Program');
 
 module.exports = async (req, res) => {
-    await Class.findByIdAndDelete(req.params.id)
+    await Program.findByIdAndDelete(req.params.id)
         .then(data => {
-            console.log(data)
             data ? res.status(200).send({
                 status: 200,
-                msg: 'Success: Data Delete succesfully'
+                msg: 'Program Delete succesfully'
             }) : res.send({
                 status: 304,
-                msg: 'Fail: Data not found'
+                msg: 'Program not found'
             });
         })
         .catch(err => {

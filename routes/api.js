@@ -4,15 +4,15 @@ const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 
 //class
-const classAdd = require('./modules/class/addClass');
-const classDelete = require('./modules/class/deleteClass');
-const classGet = require('./modules/class/getClasses');
-const classPut = require('./modules/class/updateClass');
+const programAdd = require('./modules/program/addProgram');
+const programDelete = require('./modules/program/deleteProgram');
+const programGet = require('./modules/program/getPrograms');
+const programPut = require('./modules/program/updateProgram');
 
-router.post('/class/add',classAdd);
-router.delete('/class/:id',classDelete);
-router.get('/classes',classGet);
-router.put('/class/:id',classPut);
+router.post('/program/add',programAdd);
+router.delete('/program/:id',programDelete);
+router.get('/programs',programGet);
+router.put('/program/:id',programPut);
 
 //Course section
 const courseAdd = require('./modules/course/courseAdd');
