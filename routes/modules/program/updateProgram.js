@@ -5,7 +5,6 @@ module.exports = async (req, res) => {
     var { body } = req;
     var { id } = req.params;
     var error = await validate(body,id);
-    console.log(error);
     if (error) {
         return res.status(402).send({
             status: 402,

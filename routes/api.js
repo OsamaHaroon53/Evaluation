@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 
-//class
+//program
 const programAdd = require('./modules/program/addProgram');
 const programDelete = require('./modules/program/deleteProgram');
 const programGet = require('./modules/program/getPrograms');
@@ -13,6 +13,19 @@ router.post('/program/add',programAdd);
 router.delete('/program/:id',programDelete);
 router.get('/programs',programGet);
 router.put('/program/:id',programPut);
+
+//Class section
+const sectionAdd = require('./modules/section/addSection');
+const sectionDelete = require('./modules/section/deleteSection');
+const sectionGet = require('./modules/section/getSections');
+const sectionPut = require('./modules/section/updateSection');
+const sectionByProgramGet = require('./modules/section/getSectionsByProgramID');
+
+router.post('/section/add',sectionAdd);
+router.delete('/section/:id',sectionDelete);
+router.get('/sections',sectionGet);
+router.put('/section/:id',sectionPut);
+router.get('/sectionsbyprogram/:id',sectionByProgramGet);
 
 //Course section
 const courseAdd = require('./modules/course/courseAdd');
