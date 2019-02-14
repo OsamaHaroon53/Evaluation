@@ -1,41 +1,28 @@
 const courseModel = require('../../../models/Course');
-const objectid = require('mongoose').Types.ObjectId;;
+const { objectIdValidator } = require('../Validation/variable');
 
-module.exports = (req, res) => {
-    validate(req.params.program)
-        ?
-        courseModel.find({ program: req.params.program })
-            .select("_id courseNo title")
-            .then(data => {
-                data.length ? res.send({
-                    status: 200,
-                    data: data,
-                    msg: 'Success: Data send succesfully'
-                }) : res.send({
-                    status: 304,
-                    msg: 'Fail: Data not found'
-                });
-            })
-            .catch(err => {
-                console.log('err: ' + err);
-                res.send({
-                    status: 500,
-                    msg: 'Error: Server Error',
-                    error: err
-                });
-            })
-        : res.send({
+module.exports = async (req, res) => {
+    let { program } = req.params;
+
+    if (!await objectIdValidator(program)) {
+        return res.send({
+            error: 'Program id is not valid',
             status: 402,
-            msg: 'Validation error'
+            msg: 'Validation Error'
         });
+    }
 
-};
+    record = await courseModel.find({ program: program }).select("_id courseNo title");
+    if (!record || (record && !record.length)) {
+        return res.status(200).send({
+            status: 304,
+            msg: 'Course Not Found'
+        })
+    }
 
-function validate(program) {
-    flag = false;
-    ['BSSE', 'BSCS', 'MCS', 'PGD', 'MS', 'Phd'].forEach(x => {
-        if (x == program)
-            flag = true;
+    res.send({
+        status: 200,
+        data: record,
+        msg: 'Courses get succesfully'
     });
-    return flag;
 }
