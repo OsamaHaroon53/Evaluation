@@ -13,13 +13,13 @@ module.exports = async function (req, res, next) {
         });
     }
     var record = await Program.findById(req.body.program);
-    console.log(record)
     if (!record) {
         return res.status(400).send({
             status: 304,
             msg: "Program Not Found"
         });
     }
+
     record = await Section.findOne(req.body);
     if (record) {
         return res.status(400).send({
