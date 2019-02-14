@@ -12,13 +12,12 @@ const courseSchema = new Schema({
         validate: {
             isAsync: true,
             validator: function (v, cb) {
-                setTimeout(function () {    
-                    var valid = (/^((MSCS)|(CS)|(CS[(]SE[)])|(BSCS)|(PGD))([-]{1})(\d{3})$/.test(v));
+                setTimeout(function () {
+                    var valid = (/^([a-zA-Z]{2,6})([-]{1})(\d{3})$/.test(v));
                     var msg = v + ' is not a valid course number!';
                     cb(valid, msg);
                 }, 5);
             },
-            // Default error message, overridden by 2nd argument to `cb()` above
             message: 'Request Time out'
         }
     },
@@ -28,35 +27,28 @@ const courseSchema = new Schema({
         validate: {
             isAsync: true,
             validator: function (v, cb) {
-                setTimeout(function () {    
+                setTimeout(function () {
                     var valid = (/^(\d{1})$|(^(\d{1})([+]{1})(\d{1})$)/.test(v));
                     var msg = v + ' is not a valid course credit hour!';
                     cb(valid, msg);
                 }, 5);
             },
-            // Default error message, overridden by 2nd argument to `cb()` above
             message: 'Request Time out'
         }
     },
-    courseType:{
+    courseType: {
         type: String,
         required: [true, 'course type required'],
-        enum: ['compulsory','optional','special']
+        enum: ['compulsory', 'optional', 'special']
     },
     program: {
-        type: String,
-        required: [true, 'program is required'],
-        enum: ['BSSE', 'BSCS', 'MCS', 'PGD', 'MS', 'Phd']
-    },
-    semester: {
-        type: Number,
-        required: [true, 'semester required'],
-        min: 1,
-        max: 8
+        type: Schema.Types.ObjectId,
+        ref: 'programs',
+        required: [true, 'program id is required']
     },
     preRequisite: {
         type: Schema.Types.ObjectId,
-        ref: 'course'
+        ref: 'courses'
     },
     content: {
         type: String,
@@ -67,4 +59,4 @@ const courseSchema = new Schema({
     },
 });
 
-module.exports = mongoose.model('course', courseSchema);
+module.exports = mongoose.model('courses', courseSchema);
