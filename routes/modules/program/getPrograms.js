@@ -5,7 +5,7 @@ module.exports = async function (req, res) {
         {
             $group: {
                 _id: "$program",
-                semesters: { $addToSet: { semesterNo: "$semester", _id: "$_id" } }
+                semesters: { $addToSet: { semesterNo: "$semester", shift: "$shift", _id: "$_id" } }
             }
         },
         {

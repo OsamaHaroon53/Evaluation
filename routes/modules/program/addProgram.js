@@ -11,7 +11,7 @@ module.exports = async function (req, res, next) {
             msg: "Validation Error"
         });
     }
-    var record = await Program.findOne(_.omit(req.body, 'description'));
+    var record = await Program.findOne(_.omit(req.body, 'programName description'));
     if (record) {
         return res.status(400).send({
             status: 400,

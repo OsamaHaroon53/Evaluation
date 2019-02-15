@@ -17,11 +17,16 @@ const programSchema = new Schema({
         min: 1,
         max: 10
     },
+    shift: {
+        type: String,
+        enum: ['both', 'morning', 'evening'],
+        required: [true, 'shift is required']
+    },
     description: {
         type: String
     }
 });
 
-programSchema.index({ program: 1, semester: 1 }, { unique: true });
+programSchema.index({ program: 1, semester: 1, shift: 1 }, { unique: true });
 
 module.exports = mongoose.model('programs', programSchema);
