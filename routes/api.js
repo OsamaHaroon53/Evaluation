@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
+const teacher = require('../middleware/teacher');
+const student = require('../middleware/student');
 
 //program
 const programAdd = require('./modules/program/addProgram');
@@ -48,8 +50,6 @@ const createCode = require('./modules/account/verificationCode');
 const sendCode = require('./modules/mail/sendCode');
 const validateCode = require('./modules/account/validateVerificationCode');
 const changePassword = require('./modules/account/changePassword');
-const getTeacher = require('./modules/account/getTeacher');
-const getStudent = require('./modules/account/getStudent');
 
 router.post('/login',logIn);
 
@@ -61,7 +61,19 @@ router.post('/changepassword',auth,changePassword);
 
 router.post('/admin/signup',signUp);
 router.post('/admin/sendpassword',sendPassword);
-router.get('/admin/allteacher',getTeacher);
-router.get('/admin/allstudent',getStudent);
+
+//teacher
+const teacherGet = require('./modules/teacher/getTeacher');
+const teacherUpdate = require('./modules/teacher/updateTeacher');
+
+router.get('/admin/allteacher',teacherGet);
+router.put('/teacher/updateprofile',[auth,teacher],teacherUpdate);
+
+//student
+const studentGet = require('./modules/student/getStudent');
+const studentUpdate = require('./modules/student/updateStudent');
+
+router.get('/admin/allstudent',studentGet);
+router.put('/student/updateprofile',[auth,student],studentUpdate);
 
 module.exports = router;

@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const Schema = mongoose.Schema;
 
-const studentSchema = new mongoose.Schema({
+const studentSchema = new Schema({
     name: {
         type: String,
-        // required: true
     },
     fname: {
         type: String
@@ -19,16 +19,18 @@ const studentSchema = new mongoose.Schema({
     },
     ep_no: {
         type: Number,
-        // required: true,
-        //unique: true
     },
     phone_no: {
         type: Number,
-        // required: true
     },
-    year: {
+    batch: {
         type: Number,
-        // required: true
+        min: 1995,
+        max: 9999
+    },
+    section: {
+        type: Schema.Types.ObjectId,
+        ref: 'sections'
     },
     email: {
         type: String,
