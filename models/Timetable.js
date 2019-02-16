@@ -2,28 +2,29 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TTSchema = new Schema({
-    Day: {
+    day: {
         type: Number,
         required: true,
         min: 0,
         max: 6
     },
-    shift: {
-        type: String,
-        required: true
-    },
     section: {
+        type: Schema.Types.ObjectId,
+        ref: 'sections',
+        required: true,
+        unique: true
+    },
+    startTime: {
         type: String,
         required: true
     },
-    Time: {
+    endTime: {
         type: String,
         required: true
     },
-    
     course: {
         type: Schema.Types.ObjectId,
-        ref: 'course',
+        ref: 'courses',
         required: true
     },
     teacher: {
@@ -31,7 +32,10 @@ const TTSchema = new Schema({
         ref: 'teacher',
         required: true
     },
-    labTime: {
+    labStartTime: {
+        type: String
+    },
+    labEndTime: {
         type: String
     },
     labTeacher: {
@@ -40,4 +44,4 @@ const TTSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('timeTable', TTSchema);
+module.exports = mongoose.model('timeTables', TTSchema);

@@ -76,4 +76,11 @@ const studentUpdate = require('./modules/student/updateStudent');
 router.get('/admin/allstudent',studentGet);
 router.put('/student/updateprofile',[auth,student],studentUpdate);
 
+//timeTable
+const TTGet = require('./modules/timeTable/getTT');
+const TTAdd = require('./modules/timeTable/addTT');
+
+router.get('/admin/timetables',TTGet);
+router.post('/admin/timetable/add',TTAdd);
+
 module.exports = router;
