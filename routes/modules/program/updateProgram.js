@@ -1,10 +1,11 @@
 const Program = require('../../../models/Program');
-const validate= require('../Validation/program');
+const { validatePut: validate } = require('../Validation/program');
+const _ = require('lodash');
 
-module.exports = async (req, res) => {
+
+module.exports = async (req, res,next) => {
     var { body } = req;
-    var { id } = req.params;
-    var error = await validate(body,id);
+    var error = await validate(body);
     if (error) {
         return res.status(402).send({
             status: 402,
@@ -12,26 +13,22 @@ module.exports = async (req, res) => {
             msg: "Validation Error"
         });
     }
-    await Program.findOneAndUpdate({ _id: id }, body)
-        .then(data => {
-            console.log(data)
-            data ? res.status(200).send({
-                status: 200,
-                data: (() => {
-                    body["_id"] = id;
-                    return body;
-                })(),
-                msg: 'Data Update succesfully'
-            }) : res.status(200).send({
-                status: 304,
-                msg: 'Data not found'
-            });
-        })
-        .catch(err => {
-            res.status(500).send({
-                status: 500,
-                msg: 'Server Error',
-                error: err
-            });
+    record = await Program.deleteMany({ programName: body.programNameOld, program: body.programOld });
+    if(record['ok'] == 1 && !record['n']){
+        return res.status(400).send({
+            status: 400,
+            msg: "Program Not Found"
         });
+    }
+    if(record['ok'] == 1 && record['n']){
+        req.body = _.omit(body, "programNameOld", "programOld");
+        req.url = "/program/add";
+        next();
+        return;
+    }
+    res.send({
+        status: 500,
+        msg: "Server Error",
+        error: record
+    });
 };
