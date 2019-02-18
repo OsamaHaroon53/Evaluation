@@ -4,25 +4,15 @@ module.exports = async function (req, res) {
     await Program.aggregate([
         {
             $group: {
-                _id: { program: "$program", programName: "$programName" },
-                semesters: { $sum: 1 },
-                shift: {$addToSet: "$shift"}
+                _id: { program: "$program", programName: "$programName", shift: "$shift" },
+                semesters: { $addToSet: { semesterNo: "$semester", _id: "$_id" } }
             }
         },
         {
-            $project: { 
-                program: "$_id.program",
-                ProgramName: "$_id.programName",
-                semesters: { $divide: [ "$semesters", { $size: "$shift"} ] },
-                shift: {
-                    $cond: { if: { $ne: [{ $size: "$shift"},1] }, then: "both", else: { $arrayElemAt: [ "$shift", 0 ] } }
-                },
-            }
+            $addFields: { programDetail: "$_id" }
         },
         {
-            $project: {
-                _id: 0,
-            }
+            $project: { _id: 0 }
         }
     ], function (err, result) {
         if (err) {

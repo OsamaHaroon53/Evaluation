@@ -6,15 +6,17 @@ const teacher = require('../middleware/teacher');
 const student = require('../middleware/student');
 
 //program
+const programPut = require('./modules/program/updateProgram');
 const programAdd = require('./modules/program/addProgram');
 const programDelete = require('./modules/program/deleteProgram');
 const programGet = require('./modules/program/getPrograms');
-const programPut = require('./modules/program/updateProgram');
+const programIDGet = require('./modules/program/getProgramsSemesters');
 
+router.put('/program',[programPut],programAdd);
 router.post('/program/add',programAdd);
-router.delete('/program/:id',programDelete);
+router.delete('/program',programDelete);
 router.get('/programs',programGet);
-router.put('/program/:id',programPut);
+router.get('/programswithid',programIDGet);
 
 //Class section
 const sectionAdd = require('./modules/section/addSection');
