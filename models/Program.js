@@ -19,11 +19,8 @@ const programSchema = new Schema({
     },
     shift: {
         type: String,
-        enum: ['both', 'morning', 'evening'],
+        enum: ['morning', 'evening'],
         required: [true, 'shift is required']
-    },
-    description: {
-        type: String
     }
 });
 

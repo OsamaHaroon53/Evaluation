@@ -1,9 +1,10 @@
 const _ = require('lodash');
 const Program = require('../../../models/Program');
-const validate= require('../Validation/program');
+const { validate } = require('../Validation/program');
 
 module.exports = async function (req, res, next) {
-    var error = await validate(req.body);
+    var { body } = req;
+    var error = await validate(body);
     if (error) {
         return res.status(402).send({
             status: 402,
@@ -11,7 +12,7 @@ module.exports = async function (req, res, next) {
             msg: "Validation Error"
         });
     }
-    var record = await Program.findOne(_.omit(req.body, 'programName description'));
+    var record = await Program.findOne(_.pick(body, 'program'));
     if (record) {
         return res.status(400).send({
             status: 400,
@@ -19,11 +20,17 @@ module.exports = async function (req, res, next) {
         });
     }
 
-    record = new Program(req.body);
+    if (body.shift === "both") {
+        record = _.range(1, body.semesters + 1).map(s => _.assign(_.omit(body, "semesters"), { semester: s }, { shift: "morning" }));
+        let clone = _.cloneDeep(record)
+        record = [...clone, ...record.map(p => _.assign(p, { shift: "evening" }))]
+    }
+    else
+        record = _.range(1, body.semesters + 1).map(s => _.assign({ semester: s }, _.omit(body, "semesters")));
 
-    await record.save()
+    await Program.insertMany(record)
         .then(data => res.status(200).send({
-            data: _.omit(data.toObject(), '__v'),
+            data: data,
             msg: "Program added succesfully",
             status: 200
         }))
