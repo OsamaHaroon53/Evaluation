@@ -13,15 +13,15 @@ if (!config.get('jwtPrivateKey')) {
     process.exit(0);
 }
 
-if (!config.get('Guser')) {
-    console.error("FATAL ERROR: Guser is not defined");
-    process.exit(0);
-}
+// if (!config.get('Guser')) {
+//     console.error("FATAL ERROR: Guser is not defined");
+//     process.exit(0);
+// }
 
-if (!config.get('Gpass')) {
-    console.error("FATAL ERROR: Gpass is not defined");
-    process.exit(0);
-}
+// if (!config.get('Gpass')) {
+//     console.error("FATAL ERROR: Gpass is not defined");
+//     process.exit(0);
+// }
 
 app.use(logger('dev'));
 
@@ -59,3 +59,5 @@ if (app.get('env') === 'development') {
 app.listen(port, () => {
     console.log(`listening on port ${port}`)
 });
+const _ = require('lodash');
+console.log(_.range(1,2+1).map(s=> _.assign({se: s},{pr:'dsf'})));
