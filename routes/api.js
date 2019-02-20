@@ -11,12 +11,14 @@ const programAdd = require('./modules/program/addProgram');
 const programDelete = require('./modules/program/deleteProgram');
 const programGet = require('./modules/program/getPrograms');
 const programIDGet = require('./modules/program/getProgramsSemesters');
+const programSemesterGet = require('./modules/program/getSemesters');
 
 router.put('/program',[programPut],programAdd);
 router.post('/program/add',programAdd);
 router.delete('/program',programDelete);
 router.get('/programs',programGet);
 router.get('/programswithid',programIDGet);
+router.post('/programs/semesters',programSemesterGet);
 
 //Class section
 const sectionAdd = require('./modules/section/addSection');

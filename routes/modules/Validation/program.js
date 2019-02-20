@@ -40,8 +40,19 @@ async function validateDelete(payload) {
     return error;
 }
 
+async function validateGet(payload) {
+    const schema = Joi.object().keys({
+        program: Joi.string().min(2).max(6).regex(/^([a-zA-Z]{2,6})$/).required(),
+        shift: Joi.string().valid(['morning', 'evening']).required()
+    });
+    let { error } = Joi.validate(payload, schema);
+    if (error !== null)
+        delete error['isJoi'];
+    return error;
+}
 module.exports = {
     validate,
     validatePut,
-    validateDelete
+    validateDelete,
+    validateGet
 }
