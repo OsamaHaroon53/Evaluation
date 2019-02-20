@@ -9,7 +9,22 @@ module.exports = async function (req, res) {
             }
         },
         {
-            $addFields: { programDetail: "$_id" }
+            $project: { 
+                program: "$_id.program",
+                programName: "$_id.programName",
+                shift: "$_id.shift",
+                semesters: "$semesters",
+                _id: 0 
+            }
+        },
+        {
+            $group: {
+                _id: { program: "$program", programName: "$programName"},
+                shifts: { $addToSet: { shift: "$shift", semesters: "$semesters" } }
+            }
+        },
+        {
+            $addFields: { program: "$_id.program", programName: "$_id.programName"}
         },
         {
             $project: { _id: 0 }
