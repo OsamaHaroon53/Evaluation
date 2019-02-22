@@ -2,7 +2,7 @@ const courseModel = require('../../../models/Course');
 
 module.exports = async (req, res) => {
 
-    var record = await courseModel.find().select("-__v");
+    var record = await courseModel.find().populate("program","program semester shift").select("-__v");
     if (!record || (record && !record.length)) {
         return res.status(200).send({
             status: 304,
