@@ -54,7 +54,7 @@ const courseSchema = new Schema({
         type: String,
         default: 'contact to office staff'
     },
-    BookSuggestion: {
+    bookSuggestion: {
         type: [String]
     },
 });

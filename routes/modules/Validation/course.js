@@ -10,7 +10,7 @@ module.exports = async function (payload, id = '') {
         courseType: Joi.string().valid(['compulsory', 'optional', 'special']).required(),
         preRequisite: Joi.string(),
         content: Joi.string(),
-        BookSuggestion: Joi.array().items(Joi.string())
+        bookSuggestion: Joi.array().items(Joi.string())
     });
 
     let { error } = Joi.validate(payload, schema);
