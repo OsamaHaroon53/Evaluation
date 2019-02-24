@@ -1,7 +1,7 @@
 const Section = require('../../../models/Section');
 
 module.exports = async function (req, res, next) {
-    var data = await Section.find().populate('program','program semester').select('-__v');
+    var data = await Section.find().populate('program','program shift semester').select('-__v');
     if(!data.length){
         return res.status(200).send({
             status: 304,

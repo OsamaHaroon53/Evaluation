@@ -89,4 +89,11 @@ const TTAdd = require('./modules/timeTable/addTT');
 router.get('/admin/timetables',TTGet);
 router.post('/admin/timetable/add',TTAdd);
 
+//Evaluation
+const evalautionGet = require('./modules/Evaluation/get');
+const evalautionAdd = require('./modules/Evaluation/add');
+
+router.get('/admin/evaluations',[auth,admin],evalautionGet);
+router.post('/admin/evaluation/add',[auth,student],evalautionAdd);
+
 module.exports = router;
