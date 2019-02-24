@@ -2,8 +2,18 @@ const _ = require('lodash');
 const Student = require('../../../models/Student');
 const Course = require('../../../models/Course');
 const Evaluation = require('../../../models/evaluationCourse');
+const validate = require('../Validation/courseEvaluation')
 
 module.exports = async function (req, res, next) {
+    var error = await validate(req.body);
+    if (error) {
+        return res.status(402).send({
+            status: 402,
+            error: error,
+            msg: "Validation Error"
+        });
+    }
+
     var record = await Course.findById(req.body.course);
     if (!record) {
         return res.status(400).send({

@@ -56,6 +56,7 @@ const createCode = require('./modules/account/verificationCode');
 const sendCode = require('./modules/mail/sendCode');
 const validateCode = require('./modules/account/validateVerificationCode');
 const changePassword = require('./modules/account/changePassword');
+const getProfile = require('./modules/account/getProfile');
 
 router.post('/login',logIn);
 
@@ -64,6 +65,7 @@ router.post('/sendcode',sendCode);
 router.post('/validatecode',validateCode);
 
 router.post('/changepassword',auth,changePassword);
+router.get('/profile',auth,getProfile);
 
 router.post('/admin/signup',signUp);
 router.post('/admin/sendpassword',sendPassword);
@@ -94,6 +96,6 @@ const evalautionGet = require('./modules/Evaluation/get');
 const evalautionAdd = require('./modules/Evaluation/add');
 
 router.get('/admin/evaluations',[auth,admin],evalautionGet);
-router.post('/admin/evaluation/add',[auth,student],evalautionAdd);
+router.post('/student/evaluation/add',[auth,student],evalautionAdd);
 
 module.exports = router;

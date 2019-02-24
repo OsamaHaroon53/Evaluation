@@ -7,45 +7,45 @@ const courseEvaluation = new Schema({
         required: [true, 'course required']
     },
     student: {
-        type: Schema.ObjectId.ObjectId,
-        ref: 'students',
+        type: Schema.Types.ObjectId,
+        ref: 'student',
         required: [true, 'student required']
     },
     availability: {
         type: Number,
         min: 1,
         max: 5,
-        required: [true, 'program id is required']
+        required: [true, 'availability is required']
     },
     clearityOfSpeech: {
         type: Number,
         min: 1,
         max: 5,
-        required: [true, 'program id is required']
+        required: [true, 'clearityOfSpeech is required']
     },
     explanation: {
         type: Number,
         min: 1,
         max: 5,
-        required: [true, 'program id is required']
+        required: [true, 'explanation is required']
     },
     questionResponse: {
         type: Number,
         min: 1,
         max: 5,
-        required: [true, 'program id is required']
+        required: [true, 'questionResponse is required']
     },
     teachingStyle: {
         type: Number,
         min: 1,
         max: 5,
-        required: [true, 'program id is required']
+        required: [true, 'teachingStyle is required']
     },
     subjectKnowledge: {
         type: Number,
         min: 1,
         max: 5,
-        required: [true, 'program id is required']
+        required: [true, 'subjectKnowledge is required']
     },
     theoryComments: {
         type: String
@@ -55,6 +55,6 @@ const courseEvaluation = new Schema({
     }
 });
 
-programSchema.index({ course: 1, student: 1 }, { unique: true });
+courseEvaluation.index({ course: 1, student: 1 }, { unique: true });
 
-module.exports = mongoose.model('evaluationcourses', courseEvaluation);z
+module.exports = mongoose.model('evaluationcourses', courseEvaluation);
