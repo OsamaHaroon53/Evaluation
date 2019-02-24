@@ -48,7 +48,7 @@ module.exports = async function (req, res) {
         html: `
                 <div style="text-align:center;">
                     <h3>Welcome to UBIT!</h3>
-                    <p>Your account has been Created</p><br />
+                    <p>Your account has been Created for ${req.body.role}.</p><br />
                     <div><img width="300px" src="cid:UBIT"/></div><br /><br />
                     <div><strong>Email:</strong> <span style="padding:10px 5px;border: 1px solid grey;">${req.body.email}</span></div>
                     <br /> <br />
