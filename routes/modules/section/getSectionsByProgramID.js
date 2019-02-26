@@ -18,7 +18,9 @@ module.exports = async function (req, res, next) {
             $addFields: { program: "$_id" }
         },
         {
-            $project: { _id: 0 }
+            $project: {
+                _id: 0 
+            }
         }
     ], function (err, result) {
         if (err) {
@@ -29,10 +31,16 @@ module.exports = async function (req, res, next) {
             })
             return;
         }
+        if(!result.length){
+            return res.status(200).send({
+                status: 304,
+                msg: "No Section Found"
+            });
+        }
         res.status(200).send({
             status: 200,
-            msg: "Get Programs Succesfully",
-            data: result
+            msg: "Get Sections Succesfully",
+            data: result[0]
         });
     });
 }
