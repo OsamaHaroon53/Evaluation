@@ -49,6 +49,10 @@ module.exports = async function (req, res, next) {
             });
         }   
     }
+    else{
+        body = _.omit(body,"labStartTime","labEndTime","labTeacher");
+        console.log(body);
+    }
 
     record = await Timetable.findOne(body);
     if (record) {
