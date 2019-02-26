@@ -11,8 +11,7 @@ const TTSchema = new Schema({
     section: {
         type: Schema.Types.ObjectId,
         ref: 'sections',
-        required: true,
-        unique: true
+        required: true
     },
     startTime: {
         type: String,
@@ -21,6 +20,16 @@ const TTSchema = new Schema({
     endTime: {
         type: String,
         required: true
+    },
+    effectiveDate: {
+        type: Number,
+        required: true
+    },
+    batch: {
+        type: String,
+        default: function(){
+            return new Date(this.effectiveDate).getFullYear()
+        }
     },
     course: {
         type: Schema.Types.ObjectId,
@@ -43,5 +52,7 @@ const TTSchema = new Schema({
         ref: 'teacher'
     }
 });
+
+TTSchema.index({ effectiveDate: 1, section: 1 }, { unique: true });
 
 module.exports = mongoose.model('timeTables', TTSchema);

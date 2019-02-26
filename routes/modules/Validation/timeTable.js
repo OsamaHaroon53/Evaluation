@@ -9,6 +9,7 @@ module.exports = async function validate(payload) {
         endTime: Joi.string().required(),
         course: Joi.string().required(),
         teacher: Joi.string().required(),
+        effectiveDate: Joi.number().required(),
         labStartTime: Joi.string(),
         labEndTime: Joi.string(),
         labTeacher: Joi.string()
