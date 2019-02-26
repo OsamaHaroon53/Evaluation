@@ -10,9 +10,9 @@ module.exports = async function validate(payload) {
         course: Joi.string().required(),
         teacher: Joi.string().required(),
         effectiveDate: Joi.number().required(),
-        labStartTime: Joi.string(),
-        labEndTime: Joi.string(),
-        labTeacher: Joi.string()
+        labStartTime: Joi.string().allow([""]),
+        labEndTime: Joi.string().allow([""]),
+        labTeacher: Joi.string().allow([""])
     });
     let { error } = Joi.validate(payload, schema);
     if (error !== null)
