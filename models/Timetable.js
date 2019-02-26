@@ -53,6 +53,6 @@ const TTSchema = new Schema({
     }
 });
 
-TTSchema.index({ effectiveDate: 1, section: 1 }, { unique: true });
+TTSchema.index({ effectiveDate: 1, section: 1, course: 1 }, { unique: true });
 
 module.exports = mongoose.model('timeTables', TTSchema);
