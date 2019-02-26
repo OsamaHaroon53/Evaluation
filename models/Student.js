@@ -61,6 +61,10 @@ const studentSchema = new Schema({
         type: String,
         enum: ['inactive','active','sent'],
         default: 'inactive'
+    },
+    block: {
+        type: Boolean,
+        default: false
     }
 });
 

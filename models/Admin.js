@@ -33,6 +33,10 @@ var adminSchema = new mongoose.Schema({
         type: String,
         enum: ['inactive','active','sent'],
         default: 'inactive'
+    },
+    block: {
+        type: Boolean,
+        default: false
     }
 });
 
