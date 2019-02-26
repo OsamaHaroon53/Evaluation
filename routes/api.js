@@ -48,7 +48,7 @@ router.put('/course/:id',coursePut);
 router.get('/course/courseNo/:program',courseNoGet);
 router.get('/courses',coursesGet);
 
-// Account
+// Account for all
 const signUp = require('./modules/account/signup');
 const sendPassword = require('./modules/mail/sendPassword');
 const logIn = require('./modules/account/login');
@@ -57,6 +57,7 @@ const sendCode = require('./modules/mail/sendCode');
 const validateCode = require('./modules/account/validateVerificationCode');
 const changePassword = require('./modules/account/changePassword');
 const getProfile = require('./modules/account/getProfile');
+const blockUser = require('./modules/account/BlockUser');
 
 router.post('/login',logIn);
 
@@ -66,6 +67,7 @@ router.post('/validatecode',validateCode);
 
 router.post('/changepassword',auth,changePassword);
 router.get('/profile',auth,getProfile);
+router.post('/blockuser',[auth,admin],blockUser);
 
 router.post('/admin/signup',signUp);
 router.post('/admin/sendpassword',sendPassword);
@@ -73,16 +75,20 @@ router.post('/admin/sendpassword',sendPassword);
 //teacher
 const teacherGet = require('./modules/teacher/getTeacher');
 const teacherUpdate = require('./modules/teacher/updateTeacher');
+const assignCourses = require('./modules/teacher/getAssignCourses');
 
 router.get('/admin/allteacher',teacherGet);
 router.put('/teacher/updateprofile',[auth,teacher],teacherUpdate);
+router.get('/teacher/courses',[auth,teacher],assignCourses);
 
 //student
 const studentGet = require('./modules/student/getStudent');
 const studentUpdate = require('./modules/student/updateStudent');
+const myCourses = require('./modules/student/getStudentCourses');
 
 router.get('/admin/allstudent',studentGet);
 router.put('/student/updateprofile',[auth,student],studentUpdate);
+router.get('/student/courses',[auth,student],myCourses);
 
 //timeTable
 const TTGet = require('./modules/timeTable/getTT');
