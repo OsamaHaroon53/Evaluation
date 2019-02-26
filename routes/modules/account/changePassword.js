@@ -54,7 +54,7 @@ async function findRole(role) {
 
 async function validate(payload){
         const schema = Joi.object().keys({
-            password: Joi.string().required(),
+            password: Joi.string().min(5).max(12).required(),
             oldPassword: Joi.string().required()
         });
         let { error } = Joi.validate(payload, schema);
