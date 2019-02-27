@@ -20,7 +20,7 @@ router.get('/programs',programGet);
 router.get('/programswithid',programIDGet);
 router.post('/programs/semesters',programSemesterGet);
 
-//Class section
+//section
 const sectionAdd = require('./modules/section/addSection');
 const sectionDelete = require('./modules/section/deleteSection');
 const sectionGet = require('./modules/section/getSections');
@@ -76,19 +76,35 @@ router.post('/admin/sendpassword',sendPassword);
 const teacherGet = require('./modules/teacher/getTeacher');
 const teacherUpdate = require('./modules/teacher/updateTeacher');
 const assignCourses = require('./modules/teacher/getAssignCourses');
+const assignmentAdd = require('./modules/teacher/assignment/add');
+const assignmentGet = require('./modules/teacher/assignment/get');
+const resultAdd = require('./modules/teacher/result/add');
+const resultGet = require('./modules/teacher/result/get');
 
 router.get('/admin/allteacher',teacherGet);
 router.put('/teacher/updateprofile',[auth,teacher],teacherUpdate);
 router.get('/teacher/courses',[auth,teacher],assignCourses);
+router.post('/teacher/assignment',[auth,teacher],assignmentAdd);
+router.get('/teacher/assignments/:class',[auth,teacher],assignmentGet);
+router.post('/teacher/result',[auth,teacher],resultAdd);
+router.get('/teacher/results/:class',[auth,teacher],resultGet);
 
 //student
 const studentGet = require('./modules/student/getStudent');
 const studentUpdate = require('./modules/student/updateStudent');
 const myCourses = require('./modules/student/getStudentCourses');
+const assignmentGetByStudent = require('./modules/student/assignment/get');
+const resultGetByStudent = require('./modules/student/result/get');
+const assignmentUpload = require('./modules/student/assignment/upload');
+const assignmentUploadedGet = require('./modules/student/assignment/getUploadedAssignment');
 
 router.get('/admin/allstudent',studentGet);
 router.put('/student/updateprofile',[auth,student],studentUpdate);
 router.get('/student/courses',[auth,student],myCourses);
+router.get('/student/assignment/:teacher/:class',[auth,student],assignmentGetByStudent);
+router.get('/student/result/:teacher/:class',[auth,student],resultGetByStudent);
+router.post('/student/assignment',[auth,student],assignmentUpload);
+router.get('/student/assignment/:assignment',[auth,student],assignmentUploadedGet);
 
 //timeTable
 const TTGet = require('./modules/timeTable/getTT');
