@@ -80,6 +80,7 @@ const assignmentAdd = require('./modules/teacher/assignment/add');
 const assignmentGet = require('./modules/teacher/assignment/get');
 const resultAdd = require('./modules/teacher/result/add');
 const resultGet = require('./modules/teacher/result/get');
+const studentAssignmentsGet = require('./modules/teacher/assignment/getStudentAssignment');
 
 router.get('/admin/allteacher',teacherGet);
 router.put('/teacher/updateprofile',[auth,teacher],teacherUpdate);
@@ -88,6 +89,7 @@ router.post('/teacher/assignment',[auth,teacher],assignmentAdd);
 router.get('/teacher/assignments/:class',[auth,teacher],assignmentGet);
 router.post('/teacher/result',[auth,teacher],resultAdd);
 router.get('/teacher/results/:class',[auth,teacher],resultGet);
+router.get('/teacher/studentassignments/:assignment',[auth,teacher],studentAssignmentsGet);
 
 //student
 const studentGet = require('./modules/student/getStudent');
@@ -119,5 +121,12 @@ const evalautionAdd = require('./modules/Evaluation/add');
 
 router.get('/admin/evaluations',[auth,admin],evalautionGet);
 router.post('/student/evaluation/add',[auth,student],evalautionAdd);
+
+//query
+const queryGet = require('./modules/query/get');
+const queryAdd = require('./modules/query/add');
+
+router.get('/admin/queries',[auth,admin],queryGet);
+router.post('/student/query',[auth,student],queryAdd);
 
 module.exports = router;
