@@ -18,7 +18,7 @@ const studentSchema = new Schema({
         type: String
     },
     ep_no: {
-        type: Number,
+        type: String,
     },
     phone_no: {
         type: Number,

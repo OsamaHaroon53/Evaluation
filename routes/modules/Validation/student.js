@@ -5,8 +5,8 @@ module.exports = async function validate(payload, id) {
     const schema = Joi.object().keys({
         name: Joi.string().required(),
         fname: Joi.string().required(),
-        enrolnment_no: Joi.string().required(),
-        ep_no: Joi.number().required(),
+        enrolnment_no: Joi.string(),
+        ep_no: Joi.string().required(),
         phone_no: Joi.number().required(),
         batch: Joi.number().min(1995).max(9999).required(),
         section: Joi.string(),
