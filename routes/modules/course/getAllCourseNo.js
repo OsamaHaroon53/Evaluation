@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
         });
     }
 
-    record = await courseModel.find({ program: program }).select("_id courseNo title");
+    record = await courseModel.find({ program: program }).select("_id courseNo title creditHour");
     if (!record || (record && !record.length)) {
         return res.status(200).send({
             status: 304,
