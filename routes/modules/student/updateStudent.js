@@ -15,13 +15,13 @@ module.exports = async (req, res) => {
         });
     }
 
-    var record = await Section.findById(body.section);
-    if (!record) {
-        return res.status(400).send({
-            status: 304,
-            msg: "Section is Invalid"
-        });
-    }
+    // var record = await Section.findById(body.section);
+    // if (!record) {
+    //     return res.status(400).send({
+    //         status: 304,
+    //         msg: "Section is Invalid"
+    //     });
+    // }
 
     var record = await Student.findById(id);
     if (!record) {

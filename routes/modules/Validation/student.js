@@ -8,8 +8,7 @@ module.exports = async function validate(payload, id) {
         enrolnment_no: Joi.string(),
         ep_no: Joi.string().required(),
         phone_no: Joi.number().required(),
-        batch: Joi.number().min(1995).max(9999).required(),
-        section: Joi.string(),
+        batch: Joi.number().min(1995).max(9999),
         img: Joi.string()
     });
     let { error } = Joi.validate(payload, schema);
@@ -17,7 +16,5 @@ module.exports = async function validate(payload, id) {
         delete error['isJoi'];
     else if (id && !await objectIdValidator(id))
         return 'id is not valid';
-    else if (payload.section && !await objectIdValidator(payload.section))
-        return 'section id is not valid';
     return error;
 }
