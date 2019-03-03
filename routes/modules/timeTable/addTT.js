@@ -50,7 +50,7 @@ module.exports = async function (req, res, next) {
         }   
     }
     else{
-        body = _.omit(body,"labStartTime","labEndTime","labTeacher");
+        body = _.omit(body,"labStartTime","labEndTime","labTeacher","labDay");
         console.log(body);
     }
 

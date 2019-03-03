@@ -47,6 +47,12 @@ const TTSchema = new Schema({
     labEndTime: {
         type: String
     },
+    labDay: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 6
+    },
     labTeacher: {
         type: Schema.Types.ObjectId,
         ref: 'teacher'

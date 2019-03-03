@@ -12,6 +12,7 @@ module.exports = async function validate(payload) {
         effectiveDate: Joi.number().required(),
         labStartTime: Joi.string().allow([""]),
         labEndTime: Joi.string().allow([""]),
+        labDay: Joi.number().min(0).max(6).allow([null]),
         labTeacher: Joi.string().allow([""])
     });
     let { error } = Joi.validate(payload, schema);
