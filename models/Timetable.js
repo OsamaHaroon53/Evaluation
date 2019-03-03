@@ -49,7 +49,6 @@ const TTSchema = new Schema({
     },
     labDay: {
         type: Number,
-        required: true,
         min: 0,
         max: 6
     },
