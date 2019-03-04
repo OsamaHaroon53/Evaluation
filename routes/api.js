@@ -110,9 +110,13 @@ router.get('/student/assignment/:assignment',[auth,student],assignmentUploadedGe
 
 //timeTable
 const TTGet = require('./modules/timeTable/getTT');
+const TTSortGet = require('./modules/timeTable/getSortTT');
+const TTBySectionsGet = require('./modules/timeTable/getTTBySections');
 const TTAdd = require('./modules/timeTable/addTT');
 
 router.get('/admin/timetables',TTGet);
+router.get('/admin/sortedtimetables',TTSortGet);
+router.get('/admin/timetabledetails/:section/:effectiveDate',TTBySectionsGet);
 router.post('/admin/timetable/add',TTAdd);
 
 //Evaluation
