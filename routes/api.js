@@ -94,6 +94,7 @@ router.get('/teacher/studentassignments/:assignment',[auth,teacher],studentAssig
 //student
 const studentGet = require('./modules/student/getStudent');
 const studentUpdate = require('./modules/student/updateStudent');
+const studentUpdateForActive = require('./modules/student/updateStudentForActive');
 const myCourses = require('./modules/student/getStudentCourses');
 const assignmentGetByStudent = require('./modules/student/assignment/get');
 const resultGetByStudent = require('./modules/student/result/get');
@@ -102,6 +103,7 @@ const assignmentUploadedGet = require('./modules/student/assignment/getUploadedA
 
 router.get('/admin/allstudent',studentGet);
 router.put('/student/updateprofile',[auth,student],studentUpdate);
+router.put('/student/activate',[auth,student],studentUpdateForActive);
 router.get('/student/courses',[auth,student],myCourses);
 router.get('/student/assignment/:teacher/:class',[auth,student],assignmentGetByStudent);
 router.get('/student/result/:teacher/:class',[auth,student],resultGetByStudent);

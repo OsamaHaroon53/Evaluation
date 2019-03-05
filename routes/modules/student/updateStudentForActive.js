@@ -7,11 +7,19 @@ module.exports = async (req, res) => {
     var { _id: id } = req.user;
 
     var error = await validate(body,id);
-    if (error) {
+    if (error || (!body.section) || (!body.batch)) {
         return res.status(402).send({
             status: 402,
-            error: error,
+            error: error==null? "Section or Batch is Empty or invalid":error,
             msg: "Validation Error"
+        });
+    }
+
+    var record = await Section.findById(body.section);
+    if (!record) {
+        return res.status(400).send({
+            status: 304,
+            msg: "Section is Invalid"
         });
     }
 
@@ -23,8 +31,12 @@ module.exports = async (req, res) => {
         });
     }
     
+    if(record.isActive != 'active')
+        record.isActive = 'active'
+    
     await Student.findOneAndUpdate({ _id: id }, body)
         .then(data => {
+            console.log(data)
             data ? res.status(200).send({
                 status: 200,
                 data: (() => {
