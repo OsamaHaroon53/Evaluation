@@ -10,8 +10,8 @@ module.exports = async function (payload) {
         questionResponse: Joi.number().min(1).max(5).required(),
         teachingStyle: Joi.number().min(1).max(5).required(),
         subjectKnowledge: Joi.number().min(1).max(5).required(),
-        theoryComments: Joi.string().allow([""]),
-        labComments: Joi.string().allow([""])
+        comments: Joi.string().allow([""]),
+        isTheory: Joi.boolean()
     });
 
     let { error } = Joi.validate(payload, schema);

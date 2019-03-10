@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const courseEvaluation = new Schema({
     course: {
         type: Schema.Types.ObjectId,
-        ref: 'courses',
+        ref: 'timeTables',
         required: [true, 'course required']
     },
     student: {
@@ -47,14 +47,15 @@ const courseEvaluation = new Schema({
         max: 5,
         required: [true, 'subjectKnowledge is required']
     },
-    theoryComments: {
+    comments: {
         type: String
     },
-    labComments: {
-        type: String
+    isTheory: {
+        type: Boolean,
+        default: true
     }
 });
 
-courseEvaluation.index({ course: 1, student: 1 }, { unique: true });
+courseEvaluation.index({ course: 1, student: 1, isTheory: 1 }, { unique: true });
 
 module.exports = mongoose.model('evaluationcourses', courseEvaluation);

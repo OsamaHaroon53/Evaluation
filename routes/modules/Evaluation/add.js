@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const Student = require('../../../models/Student');
-const Course = require('../../../models/Course');
+const Course = require('../../../models/Timetable');
 const Evaluation = require('../../../models/evaluationCourse');
 const validate = require('../Validation/courseEvaluation')
 
