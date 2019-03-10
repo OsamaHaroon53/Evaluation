@@ -135,4 +135,10 @@ const queryAdd = require('./modules/query/add');
 router.get('/admin/queries',[auth,admin],queryGet);
 router.post('/student/query',[auth,student],queryAdd);
 
+//count
+const countGet = require('./modules/getCount/count');
+
+router.get('/admin/countall',[auth,admin],countGet);
+
+
 module.exports = router;
