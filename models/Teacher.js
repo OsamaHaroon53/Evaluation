@@ -63,7 +63,8 @@ const teacherSchema = new mongoose.Schema({
 teacherSchema.methods.generateToken = function(){
     return jwt.sign({
         _id: this._id,
-        role: 2
+        role: 2,
+        status: this.isActive
     },config.get('jwtPrivateKey'), { expiresIn: '30d' });
 }
 
