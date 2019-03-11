@@ -21,7 +21,7 @@ module.exports = async function (req, res, next) {
             msg: "Email or password is incorrect"
         });
     }
-    console.log(role.block);
+    
     if(role.block){
         return res.status(403).send({
             status: 403,
@@ -31,7 +31,7 @@ module.exports = async function (req, res, next) {
     res.header("X-Auth-Token",await role.generateToken()).status(200).send({
         status: 200,
         msg: `login succesfully`,
-        data: _.pick(role,'email','name','form_no')
+        data: _.pick(role,'email','name','form_no','isActive')
     });
 }
 

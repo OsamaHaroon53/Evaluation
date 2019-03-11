@@ -12,14 +12,24 @@ module.exports = async function (req, res, next) {
     }
     count = await Student.estimatedDocumentCount();
     var limit = parseInt(req.query.limit);
-    var start = req.query.page?parseInt(req.query.page)*limit:0;
-    if(count<=start){
+    var start = req.query.page ? parseInt(req.query.page) * limit : 0;
+    if (count <= start) {
         return res.send({
             status: 304,
             msg: "Data Not Found"
         })
     }
-    var student = await Student.find().select('-password -__v').sort('_id').limit(limit).skip(start);
+    var student = await Student.find()
+        .populate({
+            path: 'section',
+            populate: {
+                path: 'program',
+                select: '-__v'
+            },
+            select: '-__v'
+        })
+        .select('-block -password -isActive -__v')
+        .sort('_id').limit(limit).skip(start);
     if (!student.length) {
         return res.status(200).send({
             status: 304,
@@ -30,17 +40,17 @@ module.exports = async function (req, res, next) {
         status: 200,
         msg: "Get students Succesfully",
         data: student,
-        pagesAvailable: Math.ceil(count/limit)
+        pagesAvailable: Math.ceil(count / limit)
     });
 }
 
-async function validate(payload){
+async function validate(payload) {
     const schema = Joi.object().keys({
         page: Joi.string().regex(/^[0-9]+$/).required(),
         limit: Joi.string().regex(/^[0-9]+$/).required()
     });
     let { error } = Joi.validate(payload, schema);
-    if(error !== null)
+    if (error !== null)
         delete error['isJoi'];
     return error;
 }
