@@ -2,7 +2,14 @@ const Timetable = require('../../../models/Timetable');
 const Student = require('../../../models/Student');
 
 module.exports = async function (req, res, next) {
-    var student = await Student.findById(req.user._id).select('batch section -_id');
+    var student = await Student.findById(req.user._id).select('section -_id');
+    if(!student){
+        return res.status(400).send({
+            msg: "No Course found",
+            error: "Please update student",
+            status: 400
+        });
+    }
     var courses = await Timetable.find(student)
         .populate({
             path: 'section',
