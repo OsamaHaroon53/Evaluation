@@ -71,7 +71,8 @@ const studentSchema = new Schema({
 studentSchema.methods.generateToken = function(){
     return jwt.sign({
         _id: this._id,
-        role: 3
+        role: 3,
+        status: this.isActive
     },config.get('jwtPrivateKey'), { expiresIn: '30d' });
 }
 

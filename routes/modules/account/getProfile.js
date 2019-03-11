@@ -1,11 +1,3 @@
-// student and teacher signup email confirmation.
-// get profile data Api
-// cloudinary upload work (either for result or for Assignment)
-// Block Api
-// result Api
-// Assignment Api
-// Complains Api
-// Attendance Api
 const _ = require('lodash');
 const Admin = require('../../../models/Admin');
 const Teacher = require('../../../models/Teacher');

@@ -1,9 +1,9 @@
-const Evaluation = require('../../../models/evaluationCourse');
+const Attendence = require('../../../models/Attendence');
 
 module.exports = async function (req, res, next) {
-    var data = await Evaluation.find()
+    var data = await Attendence.find({class: req.params.class})
         .populate({
-            path: 'course',
+            path: 'class',
             populate: [{
                 path: 'section',
                 populate: {
@@ -18,23 +18,19 @@ module.exports = async function (req, res, next) {
             select: '-__v'
         })
         .populate({
-            path: 'student',
-            populate: {
-                path: 'section',
-                select: '-__v'
-            },
-            select: 'isActive email ep_no name fname'
+            path: 'attendence.studentID',
+            select: '-block -password -isActive -__v'
         })
         .select('-__v');
     if (!data.length) {
         return res.status(200).send({
             status: 304,
-            msg: "Course Evaluation Not Found"
+            msg: "Attendence Not Found"
         });
     }
     res.status(200).send({
         status: 200,
-        msg: "Get Course Evaluation Succesfully",
+        msg: "Get Attendence Succesfully",
         data: data
     });
 }

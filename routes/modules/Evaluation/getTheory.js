@@ -1,7 +1,7 @@
 const Evaluation = require('../../../models/evaluationCourse');
 
 module.exports = async function (req, res, next) {
-    var data = await Evaluation.find()
+    var data = await Evaluation.find({ course: req.params.evaluation, isTheory: true })
         .populate({
             path: 'course',
             populate: [{

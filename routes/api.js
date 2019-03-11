@@ -123,9 +123,13 @@ router.post('/admin/timetable/add',TTAdd);
 
 //Evaluation
 const evalautionGet = require('./modules/Evaluation/get');
+const evalautionTheoryGet = require('./modules/Evaluation/getTheory');
+const evalautionLabGet = require('./modules/Evaluation/getLab');
 const evalautionAdd = require('./modules/Evaluation/add');
 
 router.get('/admin/evaluations',[auth,admin],evalautionGet);
+router.get('/admin/evaluations/theory/:evaluation',[auth,admin],evalautionTheoryGet);
+router.get('/admin/evaluations/lab/:evaluation',[auth,admin],evalautionLabGet);
 router.post('/student/evaluation/add',[auth,student],evalautionAdd);
 
 //query
@@ -139,6 +143,15 @@ router.post('/student/query',[auth,student],queryAdd);
 const countGet = require('./modules/getCount/count');
 
 router.get('/admin/countall',[auth,admin],countGet);
+
+//Attendence
+const attendenceAdd = require('./modules/attendence/addAttendence');
+const attendenceAllGet = require('./modules/attendence/getAllAttendence');
+const attendenceGet = require('./modules/attendence/getAttendenceByClass');
+
+router.get('/teacher/allattendence',[auth],attendenceAllGet);
+router.get('/teacher/attendence/:class',[auth],attendenceGet);
+router.post('/teacher/attendence',[auth,teacher],attendenceAdd);
 
 
 module.exports = router;
