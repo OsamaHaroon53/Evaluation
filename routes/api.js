@@ -150,9 +150,11 @@ router.get('/admin/countall',[auth,admin],countGet);
 const attendenceAdd = require('./modules/attendence/addAttendence');
 const attendenceAllGet = require('./modules/attendence/getAllAttendence');
 const attendenceGet = require('./modules/attendence/getAttendenceByClass');
+const attendenceByStudentGet = require('./modules/attendence/getAttendenceByStudent');
 
 router.get('/teacher/allattendence',[auth],attendenceAllGet);
 router.get('/teacher/attendence/:class',[auth],attendenceGet);
+router.get('/teacher/attendence/student/:class/:student',[auth],attendenceByStudentGet);
 router.post('/teacher/attendence',[auth,teacher],attendenceAdd);
 
 

@@ -8,6 +8,7 @@ var attendence = new Schema({
         required: [true, 'student required']
     },
     attendence: [{
+        _id: false,
         studentID: {
             type: Schema.Types.ObjectId,
             ref: 'student',
