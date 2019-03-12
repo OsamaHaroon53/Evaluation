@@ -15,6 +15,14 @@ module.exports = async (req, res) => {
         });
     }
 
+    if(body.enrolnment_no === ""){
+        delete body.enrolnment_no;
+    }
+
+    if(body.phone_no === ""){
+        delete body.phone_no;
+    }
+
     var record = await Student.findById(id);
     if (!record) {
         return res.status(400).send({

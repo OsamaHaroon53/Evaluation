@@ -15,6 +15,13 @@ module.exports = async (req, res) => {
         });
     }
 
+    if(body.enrolnment_no === ""){
+        delete body.enrolnment_no;
+    }
+    if(body.phone_no === ""){
+        delete body.phone_no;
+    }
+
     var record = await Section.findById(body.section);
     if (!record) {
         return res.status(400).send({
@@ -30,14 +37,16 @@ module.exports = async (req, res) => {
             msg: "Student Not Found"
         });
     }
-    
+
+    var token = await record.generateToken();
+
     if(record.isActive != 'active')
         record.isActive = 'active'
     
     await Student.findOneAndUpdate({ _id: id }, body)
         .then(data => {
             console.log(data)
-            data ? res.status(200).send({
+            data ? res.header("X-Auth-Token",token).status(200).send({
                 status: 200,
                 data: (() => {
                     body["_id"] = id;
