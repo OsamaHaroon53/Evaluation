@@ -37,11 +37,11 @@ module.exports = async (req, res) => {
             msg: "Student Not Found"
         });
     }
-
-    var token = await record.generateToken();
-
+    
     if(record.isActive != 'active')
         record.isActive = 'active'
+
+    var token = await record.generateToken();
     
     await Student.findOneAndUpdate({ _id: id }, body)
         .then(data => {
