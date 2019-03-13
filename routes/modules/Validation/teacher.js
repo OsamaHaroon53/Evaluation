@@ -7,9 +7,9 @@ module.exports = async function validate(payload, id) {
         fname: Joi.string().required(),
         designation: Joi.string().required(),
         qualification: Joi.string().required(),
-        contact_no: Joi.number(),
+        contact_no: Joi.string().allow([""]),
         type: Joi.string().valid(['permenant','visiting']).required(),
-        img: Joi.string()
+        img: Joi.string().allow([""])
     });
     let { error } = Joi.validate(payload, schema);
     if (error !== null)

@@ -15,13 +15,6 @@ module.exports = async (req, res) => {
         });
     }
 
-    if(body.enrolnment_no === ""){
-        delete body.enrolnment_no;
-    }
-    if(body.phone_no === ""){
-        delete body.phone_no;
-    }
-
     var record = await Section.findById(body.section);
     if (!record) {
         return res.status(400).send({

@@ -13,7 +13,9 @@ module.exports = async (req, res) => {
             msg: "Validation Error"
         });
     }
-
+    if(body.contact_no === ""){
+        delete body.contact_no;
+    }
     var record = await Teacher.findById(id);
     if (!record) {
         return res.status(400).send({
@@ -27,7 +29,6 @@ module.exports = async (req, res) => {
     
     await Teacher.findOneAndUpdate({ _id: id }, body)
         .then(data => {
-            console.log(data)
             data ? res.status(200).send({
                 status: 200,
                 data: (() => {
