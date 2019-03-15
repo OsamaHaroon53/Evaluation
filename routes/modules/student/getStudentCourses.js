@@ -2,7 +2,7 @@ const Timetable = require('../../../models/Timetable');
 const Student = require('../../../models/Student');
 
 module.exports = async function (req, res, next) {
-    var student = await Student.findById(req.user._id).select('section -_id');
+    var student = await Student.findById(req.user._id).select('section batchNow -_id');
     if(!student){
         return res.status(400).send({
             msg: "No Course found",
@@ -10,7 +10,8 @@ module.exports = async function (req, res, next) {
             status: 400
         });
     }
-    var courses = await Timetable.find(student)
+    console.log(student);
+    var courses = await Timetable.find({section: student.section, batch: student.batchNow})
         .populate({
             path: 'section',
             populate: {

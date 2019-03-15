@@ -101,6 +101,7 @@ const resultGetByStudent = require('./modules/student/result/get');
 const assignmentUpload = require('./modules/student/assignment/upload');
 const assignmentUploadedGet = require('./modules/student/assignment/getUploadedAssignment');
 const studentsGet = require('./modules/student/getStudentBySection');
+const changeClass = require('./modules/classChange/changeClass');
 
 router.get('/admin/allstudent',studentGet);
 router.put('/student/updateprofile',[auth,student],studentUpdate);
@@ -110,7 +111,8 @@ router.get('/student/assignment/:teacher/:class',[auth,student],assignmentGetByS
 router.get('/student/result/:teacher/:class',[auth,student],resultGetByStudent);
 router.post('/student/assignment',[auth,student],assignmentUpload);
 router.get('/student/assignment/:assignment',[auth,student],assignmentUploadedGet);
-router.get('/student/:class',[auth],studentsGet);
+router.get('/student/:class/:batch',[auth],studentsGet);
+router.post('/changeclass',[auth,admin],changeClass);
 
 //timeTable
 const TTGet = require('./modules/timeTable/getTT');

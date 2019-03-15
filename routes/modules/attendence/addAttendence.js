@@ -28,7 +28,7 @@ module.exports = async function (req, res, next) {
     await record.save()
         .then(data => res.status(200).send({
             data: _.omit(data.toObject(), '__v'),
-            msg: "Course Evaluatiuon added succesfully",
+            msg: "Attendence added succesfully",
             status: 200
         }))
         .catch(error => res.status(500).send({

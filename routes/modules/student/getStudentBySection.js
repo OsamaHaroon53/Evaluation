@@ -1,7 +1,7 @@
 const Student = require('../../../models/Student');
 
 module.exports = async function (req, res, next) {
-    var data = await Student.find({ section: req.params.class })
+    var data = await Student.find({ section: req.params.class, batchNow: req.params.batch })
         .populate({
             path: 'section',
             populate: {

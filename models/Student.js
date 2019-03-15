@@ -28,6 +28,11 @@ const studentSchema = new Schema({
         min: 1995,
         max: 9999
     },
+    batchNow: {
+        type: Number,
+        min: 1995,
+        max: 9999
+    },
     section: {
         type: Schema.Types.ObjectId,
         ref: 'sections'

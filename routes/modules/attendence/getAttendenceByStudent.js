@@ -19,29 +19,36 @@ module.exports = async function (req, res, next) {
         {
             $group: {
                 _id: "$isTheory",
-                request: {
-                    $addToSet: {
-                        class: "$class",
-                        studentID: "$attendence.studentID"
-                    }
+                dates: {
+                    $addToSet: "$date"
                 },
+                student: { $first: '$attendence.studentID' },
                 present: { $sum: { $cond: { if: "$attendence.status", then: 1, else: 0 } } },
                 absent: { $sum: { $cond: { if: "$attendence.status", then: 0, else: 1 } } },
                 total: { $sum: 1}
             }
         },
         {
+            $lookup:{
+                from: "students",
+                localField: "student",
+                foreignField: "_id",
+                as: "student"
+            }
+        },
+        {
             $project:
              {
-                isTheory: "$_id",
-                class: { $arrayElemAt: [ "$request.class", 0 ] },
-                studentID: { $arrayElemAt: [ "$request.studentID", 0 ] },
+                type: { $cond: { if: "$_id", then: "Theory", else: "Lab" } },
+                class: req.params.class,
+                student: { $arrayElemAt: [ "$student", 0 ] },
+                dates: "$dates",
                 present: "$present",
                 absent: "$absent",
                 total: "$total",
                 _id: 0
-             }
-        }
+            }
+        },
     ], function (err, result) {
         if (err) {
             res.status(500).send({
