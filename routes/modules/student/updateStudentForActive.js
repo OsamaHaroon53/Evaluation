@@ -40,7 +40,6 @@ module.exports = async (req, res) => {
     
     await Student.findOneAndUpdate({ _id: id }, body)
         .then(data => {
-            console.log(data)
             data ? res.header("X-Auth-Token",token).status(200).send({
                 status: 200,
                 data: (() => {

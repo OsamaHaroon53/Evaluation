@@ -14,7 +14,6 @@ module.exports = async (req, res) => {
         });
     }
     var record = await Program.findById(body.program);
-    console.log(record)
     if (!record) {
         return res.status(400).send({
             status: 304,
@@ -23,7 +22,6 @@ module.exports = async (req, res) => {
     }
     await Section.findOneAndUpdate({ _id: id }, body)
         .then(data => {
-            console.log(data)
             data ? res.status(200).send({
                 status: 200,
                 data: (() => {

@@ -4,10 +4,7 @@ const Teacher = require('../../../models/Teacher');
 const Student = require('../../../models/Student');
 const _ = require('lodash');
 const config = require('config');
-/*
-    Here we are configuring our SMTP Server details.
-    STMP is mail server which is responsible for sending and recieving email.
-*/
+
 var smtpTransport = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
@@ -31,17 +28,14 @@ module.exports = async function (req, res) {
                     <div><strong>Code:</strong> <span style="padding:8px 5px;border: 1px solid grey;">${req.text.code}</span></div><br />
                 </div>`
     }
-    console.log(mailOptions);
-    // return res.send('ok');
+
     smtpTransport.sendMail(mailOptions, function (error, response) {
         if (error) {
-            console.log(error);
             res.status(500).send({
                 status: 500,
                 msg: "mail not send"
             });
         } else {
-            console.log("Message sent: ", response.message);
             res.status(200).send({
                 status: 200,
                 msg: `code send succesfully`

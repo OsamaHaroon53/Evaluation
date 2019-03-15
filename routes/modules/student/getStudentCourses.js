@@ -10,7 +10,6 @@ module.exports = async function (req, res, next) {
             status: 400
         });
     }
-    console.log(student);
     var courses = await Timetable.find({section: student.section, batch: student.batchNow})
         .populate({
             path: 'section',

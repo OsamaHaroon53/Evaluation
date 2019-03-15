@@ -29,7 +29,7 @@ module.exports = async function (req, res, next) {
             msg: "User not found"
         });
     }
-    console.log(role);
+    
     res.header("X-Auth-Token",await role.generateToken()).status(200).send({
         status: 200,
         msg: 'Code verification successfully',

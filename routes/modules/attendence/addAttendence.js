@@ -6,7 +6,6 @@ const validate = require('../Validation/attendence')
 
 module.exports = async function (req, res, next) {
     var error = await validate(req.body);
-    console.log(error);
     if (error) {
         return res.status(402).send({
             status: 402,

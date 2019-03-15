@@ -22,7 +22,6 @@ module.exports = async function (req, res, next) {
     }
 
     record = await Student.updateMany({ $or: req.body.students }, _.pick(req.body, 'section', 'batch'));
-    console.log("record");
     if(!record.ok){
         res.status(500).send({
             error: record,

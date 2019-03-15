@@ -15,7 +15,6 @@ module.exports = async (req, res) => {
             msg: "Validation Error"
         });
     }
-    console.log(error)
 
     var record = await Program.findById(payload.program).select('program');
     if (!record) {

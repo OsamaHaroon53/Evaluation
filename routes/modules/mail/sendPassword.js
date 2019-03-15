@@ -5,10 +5,7 @@ const Student = require('../../../models/Student');
 const _ = require('lodash');
 const Joi = require('joi');
 const config = require('config');
-/*
-    Here we are configuring our SMTP Server details.
-    STMP is mail server which is responsible for sending and recieving email.
-*/
+
 var smtpTransport = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
@@ -40,11 +37,10 @@ module.exports = async function (req, res) {
             });
         }
     }
-    // return res.send('ok');
+    
     var mailOptions = {
         to: req.body.email,
         subject: "UBIT - Account Created",
-        // text: ` Email: ${req.body.email}\n password: ${req.body.password}`
         html: `
                 <div style="text-align:center;">
                     <h3>Welcome to UBIT!</h3>
@@ -62,7 +58,7 @@ module.exports = async function (req, res) {
     }
     try {
         let mail = await smtpTransport.sendMail(mailOptions);
-        console.log(mailOptions, mail);
+        
         if (mail) {
             let msg = req['signUp'] ? "signUp and mail send successfully" : "mail send successfully";
             let record = await Update(role, _.pick(req.body, "email"));
@@ -99,7 +95,6 @@ module.exports = async function (req, res) {
         }
     }
     catch (ex) {
-        console.log(ex)
         if (req['signUp']) {
             res.status(200).send({
                 status: 500,
@@ -158,7 +153,6 @@ async function validate(payload) {
         role: Joi.string().valid(['admin', 'teacher', 'student']).required()
     });
     let { error } = Joi.validate(payload, schema);
-    console.log('error', error);
     if (error !== null)
         delete error['isJoi'];
     return error;

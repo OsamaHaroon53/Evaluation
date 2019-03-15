@@ -13,7 +13,7 @@ module.exports = async function (req, res, next) {
             msg: "Validation Error"
         });
     }
-    console.log(error);
+    
     let { role, block, _id } = req.body;
     let roles = await checkRole(role);
     if (!roles) {
