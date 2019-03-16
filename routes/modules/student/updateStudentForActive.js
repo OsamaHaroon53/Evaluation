@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
     }
     
     if(record.isActive != 'active')
-        record.isActive = 'active';
+        body.isActive = 'active';
     
     body.batchNow = body.batch;
 

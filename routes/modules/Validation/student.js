@@ -10,7 +10,7 @@ module.exports = async function validate(payload, id) {
         phone_no: Joi.string().allow([""]),
         batch: Joi.number().min(1995).max(9999),
         section: Joi.string(),
-        img: Joi.string()
+        img: Joi.string().allow([""])
     });
     let { error } = Joi.validate(payload, schema);
     if (error !== null)
